@@ -1,0 +1,143 @@
+baseURL: https://niravraval.com/
+languageCode: en-us
+title: Nirav Raval
+theme: PaperMod
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+# googleAnalytics: UA-123-45
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+params:
+  env: production
+  title: Nirav Raval
+  description: "Nirav' site description"
+  mainSections:
+    - blog
+  keywords: [Blog]
+  author: Nirav Raval 
+  images: ["https://niravraval.com/assets/Images/Nirav_about.jpg"]
+  DateFormat: "January 2, 2006"
+  defaultTheme: dark 
+  disableThemeToggle: false
+  ShowReadingTime: true
+  ShowShareButtons: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowWordCount: true
+  ShowRssButtonInSectionTermList: true
+  UseHugoToc: true
+  disableSpecial1stPost: false
+  disableScrollToTop: false
+  comments: true
+  hidemeta: false
+  hideSummary: false
+ 
+  assets:
+    favicon: "/favicon.png"
+    favicon16x16: "/favicon16x16.png"
+    favicon32x32: "/favicon-32x32.png"
+    apple_touch_icon: "/apple-touch-icon.png"
+    safari_pinned_tab: "/favicon.png"
+
+  label:
+    text: "Nirav Raval"
+    iconHeight: 35
+ 
+  profileMode:
+    enabled: false  
+
+  outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON 
+    
+  homeInfoParams:
+    Title: "Hi, I'm Nirav 👋"
+    Content: >
+        🌏 Living and working in Canada
+        
+        
+        🧑‍💼 Microsoft 365 Developer at [2ToLead.](https://2tolead.com)
+
+
+        💻 SharePoint Specialist | React Enthusiast | Power Platform Explorer
+
+
+        💽 Passionate about system optimizations
+
+
+        [More...](https://niravraval.com/content/about.md)
+
+  socialIcons:
+    - name: linkedin
+      url: "https://Linkedin.com/in/nrvrvl"
+    - name: github
+      url: "https://github.com/nirav-raval"
+    - name: Mail
+      url: mailto:contact@niravraval.com
+    - name: x
+      url: "https://x.com/nrvrvl"
+    - name: RSS
+      url: index.xml
+
+  # analytics:
+  #   google:
+  #     SiteVerificationTag: "XYZabc"
+
+  cover:
+    hidden: true  
+    hiddenInList: true  
+    hiddenInSingle: true  
+
+  # editPost:
+    URL: "https://github.com/niravraval.com/content"
+    Text: "Suggest Changes" 
+    appendFilePath: true
+
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    keys: ["title", "permalink", "summary", "content"]
+
+menu:
+  main:
+    - identifier: Blog
+      name: Blog
+      url: /Blog
+      weight: 10
+    - identifier: about
+      name: About
+      url: /about/
+      weight: 20
+    - identifier: search
+      name: Search
+      url: /search/
+      weight: 30
+ 
+pygmentsUseClasses: true
+markup:
+  highlight:
+    noClasses: false
+    anchorLineNos: true
+    codeFences: true
+    guessSyntax: true
+    lineNos: true
+    style: monokai
+
+services:
+  instagram:
+    disableInlineCSS: true
+  twitter:
+    disableInlineCSS: true

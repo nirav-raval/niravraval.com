@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Nirav Raval</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on Nirav Raval</description>
+    <image>
+      <title>Nirav Raval</title>
+      <url>https://niravraval.com/assets/Images/Nirav_about.jpg</url>
+      <link>https://niravraval.com/assets/Images/Nirav_about.jpg</link>
+    </image>
+    <generator>Hugo -- 0.139.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 29 Nov 2024 11:30:03 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>forEach vs for Loops for Async Operations in JavaScript</title>
+      <link>http://localhost:1313/blog/2024/november/foreach-vs-for-loops-for-async-operations-in-javascript/</link>
+      <pubDate>Fri, 29 Nov 2024 11:30:03 +0000</pubDate>
+      <guid>http://localhost:1313/blog/2024/november/foreach-vs-for-loops-for-async-operations-in-javascript/</guid>
+      <description>&lt;p&gt;Well, today I learnt an important lesson. 🤔&lt;/p&gt;
+&lt;h1 id=&#34;the-problem&#34;&gt;The Problem&lt;/h1&gt;
+&lt;p&gt;In a recent coding effort, I found myself faced with the classic choice between JavaScript&amp;rsquo;s forEach and for&amp;hellip; loops. As I was iterating through an array of data, I realized that my code required asynchronous operations.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Async/Await in forEach&lt;/strong&gt;: Initially, I opted for the simplicity of forEach, but soon hit a roadblock. Despite my attempts to use async/await within the loop, I encountered unexpected behaviour. The asynchronous nature of forEach proved to be a block which led to unhandled promises and unpredictable results. Here&amp;rsquo;s what I was using:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>About me</title>
+      <link>http://localhost:1313/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/about/</guid>
+      <description>&lt;p&gt;&lt;img alt=&#34;Nirav Raval&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/assets/Images/Nirav_about.jpg&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Hello! My name is Nirav Raval, and I’m a Microsoft 365 Developer at &lt;a href=&#34;https://www.2ToLead.com&#34;&gt;&lt;strong&gt;2ToLead&lt;/strong&gt;&lt;/a&gt;. With over 4 years of experience specializing in SharePoint, I’m passionate about exploring and mastering Microsoft 365 tools and technologies.&lt;/p&gt;
+&lt;p&gt;My expertise spans &lt;strong&gt;React&lt;/strong&gt;, &lt;strong&gt;PowerShell&lt;/strong&gt;, &lt;strong&gt;SharePoint Framework&lt;/strong&gt;, &lt;strong&gt;Azure&lt;/strong&gt;, and &lt;strong&gt;Power Platform&lt;/strong&gt;, and I’m constantly on the lookout for creative, hacky ways to optimize and tweak systems for better performance and usability. I thrive on innovation and love diving into the details of how technologies work.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Tags on Nirav Raval</title>
+    <link>http://localhost:1313/tags/</link>
+    <description>Recent content in Tags on Nirav Raval</description>
+    <image>
+      <title>Nirav Raval</title>
+      <url>https://niravraval.com/assets/Images/Nirav_about.jpg</url>
+      <link>https://niravraval.com/assets/Images/Nirav_about.jpg</link>
+    </image>
+    <generator>Hugo -- 0.139.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 29 Nov 2024 11:30:03 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AsyncAwait</title>
+      <link>http://localhost:1313/tags/asyncawait/</link>
+      <pubDate>Fri, 29 Nov 2024 11:30:03 +0000</pubDate>
+      <guid>http://localhost:1313/tags/asyncawait/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>JavaScript</title>
+      <link>http://localhost:1313/tags/javascript/</link>
+      <pubDate>Fri, 29 Nov 2024 11:30:03 +0000</pubDate>
+      <guid>http://localhost:1313/tags/javascript/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Programming</title>
+      <link>http://localhost:1313/tags/programming/</link>
+      <pubDate>Fri, 29 Nov 2024 11:30:03 +0000</pubDate>
+      <guid>http://localhost:1313/tags/programming/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Tips</title>
+      <link>http://localhost:1313/tags/tips/</link>
+      <pubDate>Fri, 29 Nov 2024 11:30:03 +0000</pubDate>
+      <guid>http://localhost:1313/tags/tips/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>AboutNirav</title>
+      <link>http://localhost:1313/tags/aboutnirav/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/aboutnirav/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>
