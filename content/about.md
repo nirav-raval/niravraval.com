@@ -26,8 +26,10 @@ cover:
   caption: 
   relative: true
   hidden: true
+
 ---
-![Nirav Raval](/assets/Images/Nirav_about.jpg)
+![Nirav Raval](/Images/Nirav_about.jpg)
+ 
 
 Hello! My name is Nirav Raval, and I’m a Microsoft 365 Developer at [**2ToLead**](https://www.2ToLead.com). With over 4 years of experience specializing in SharePoint, I’m passionate about exploring and mastering Microsoft 365 tools and technologies.
 

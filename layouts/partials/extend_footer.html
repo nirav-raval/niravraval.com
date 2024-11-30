@@ -1,0 +1,27 @@
+<footer class="footer">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var footer = document.querySelector('.footer');
+            var spans = footer.querySelectorAll('span');
+            spans.forEach(function(span) {
+                if (span.querySelector('a[href*="gohugo.io"]') || span.querySelector('a[href*="github.com/adityatelange/hugo-PaperMod"]')) {
+                    span.style.display = 'none';  
+                }
+            });
+            
+            var footerContent = footer.innerHTML;
+            footer.innerHTML = footerContent.replace('·', '');   
+
+            var contactText = document.createElement('span');
+            contactText.textContent = " · ";
+          
+            var contactLink = document.createElement('a');
+            contactLink.href = "mailto:contact@niravraval.com";
+            contactLink.classList.add('contact-link');
+            contactLink.textContent = "Contact Me";
+             
+            footer.appendChild(contactText);
+            footer.appendChild(contactLink);
+        });
+    </script>
+</footer>

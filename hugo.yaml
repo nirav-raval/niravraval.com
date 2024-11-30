@@ -21,9 +21,9 @@ params:
     - blog
   keywords: [Blog]
   author: Nirav Raval 
-  images: ["https://niravraval.com/assets/Images/Nirav_about.jpg"]
+  images: ["https://niravraval.com/Images/Nirav_about.jpg"]
   DateFormat: "January 2, 2006"
-  defaultTheme: dark 
+  defaultTheme: light 
   disableThemeToggle: false
   ShowReadingTime: true
   ShowShareButtons: true
@@ -97,8 +97,8 @@ params:
     hiddenInList: true  
     hiddenInSingle: true  
 
-  # editPost:
-    URL: "https://github.com/niravraval.com/content"
+  editPost:
+    URL: "https://github.com/nirav-raval/niravraval.com/tree/master/content"
     Text: "Suggest Changes" 
     appendFilePath: true
 

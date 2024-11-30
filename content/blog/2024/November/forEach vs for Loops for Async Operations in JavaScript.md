@@ -30,10 +30,6 @@ cover:
   caption: 
   relative: false
   hidden: true
-editPost:
-  URL: https://github.com/niravraval.com/content
-  Text: Suggest Changes
-  appendFilePath: true
 ---
 Well, today I learnt an important lesson. 🤔  
 # The Problem
