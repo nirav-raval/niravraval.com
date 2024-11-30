@@ -54,7 +54,7 @@ params:
     enabled: false  
 
   outputs:
-  home:
+    home:
     - HTML
     - RSS
     - JSON
