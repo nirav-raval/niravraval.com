@@ -31,6 +31,7 @@ cover:
   relative: false
   hidden: true
 ---
+
 Well, today I learnt an important lesson. 🤔  
 # The Problem
   

@@ -57,7 +57,7 @@ params:
   home:
     - HTML
     - RSS
-    - JSON 
+    - JSON
     
   homeInfoParams:
     Title: "Hi, I'm Nirav 👋"
@@ -113,7 +113,7 @@ params:
 
 menu:
   main:
-    - identifier: Blog
+    - identifier: blog
       name: Blog
       url: /Blog
       weight: 10
@@ -123,7 +123,7 @@ menu:
       weight: 20
     - identifier: search
       name: Search
-      url: /search/
+      url: search/
       weight: 30
  
 pygmentsUseClasses: true

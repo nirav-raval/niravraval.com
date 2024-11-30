@@ -26,8 +26,8 @@ cover:
   caption: 
   relative: true
   hidden: true
-
 ---
+
 ![Nirav Raval](/Images/Nirav_about.jpg)
  
 
