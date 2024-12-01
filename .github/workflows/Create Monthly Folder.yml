@@ -2,8 +2,8 @@ name: Create Monthly Folder
 
 on:
   schedule:
-    # Runs at midnight on the first day of each month (UTC)
-    - cron: "0 0 1 * *"
+ 
+    - cron: "0 7 1 * *"
 
 jobs:
   create-folder:
@@ -29,5 +29,5 @@ jobs:
           git config --global user.name "Nirav-raval"
           git config --global user.email "niravraval34@gmail.com"
           git add .
-          git commit -m "Add folder for $CURRENT_YEAR/$CURRENT_MONTH"
+          git commit -m "Added folder for $CURRENT_YEAR/$CURRENT_MONTH"
           git push
