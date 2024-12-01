@@ -1,6 +1,6 @@
 ---
 title: forEach vs for Loops for Async Operations in JavaScript
-date: 2024-11-29T11:30:03+00:00
+date: 2024-11-29
 tags:
   - JavaScript
   - AsyncAwait
@@ -17,7 +17,7 @@ canonicalURL:
 disableHLJS: false
 disableShare: false
 hideSummary: false
-searchHidden: true
+searchHidden: false
 ShowReadingTime: true
 ShowBreadCrumbs: true
 ShowPostNavLinks: true

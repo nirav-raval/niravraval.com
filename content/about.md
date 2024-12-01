@@ -13,7 +13,7 @@ canonicalURL:
 disableHLJS: true
 disableShare: true
 hideSummary: false
-searchHidden: false
+searchHidden: true
 ShowReadingTime: false
 ShowBreadCrumbs: true
 ShowPostNavLinks: false
