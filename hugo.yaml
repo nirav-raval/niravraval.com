@@ -53,9 +53,9 @@ params:
   assets:
     favicon: /favicon.png
     favicon16x16: /favicon-16x16.png
-    favicon32x32: favicon-32x32.png
-    apple_touch_icon: favicon.png
-    safari_pinned_tab: favicon.png
+    favicon32x32: /favicon-32x32.png
+    apple_touch_icon: /favicon.png
+    safari_pinned_tab: /favicon.png
   label:
     text: Nirav Raval
     iconHeight: 35
@@ -77,7 +77,7 @@ params:
         💽 Passionate about system optimizations
 
 
-        [More...](https://niravraval.com/content/about.md)
+        [More...](https://niravraval.com/about)
       
   cover:
     linkFullImages: false
