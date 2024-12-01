@@ -1,0 +1,33 @@
+name: Create Monthly Folder
+
+on:
+  schedule:
+    # Runs at midnight on the first day of each month (UTC)
+    - cron: "0 0 1 * *"
+
+jobs:
+  create-folder:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Create year and month folders
+        run: |
+          CURRENT_YEAR=$(date +'%Y')
+          CURRENT_MONTH=$(date +'%B')  # Full month name
+          TARGET_DIR="content/blog/$CURRENT_YEAR/$CURRENT_MONTH"
+
+          # Create the directory structure
+          mkdir -p $TARGET_DIR
+
+          # Add a placeholder file to ensure the folder is tracked in Git
+          echo "Folder for $CURRENT_YEAR/$CURRENT_MONTH" > $TARGET_DIR/.placeholder
+
+          # Commit and push the changes
+          git config --global user.name "Nirav-raval"
+          git config --global user.email "niravraval34@gmail.com"
+          git add .
+          git commit -m "Add folder for $CURRENT_YEAR/$CURRENT_MONTH"
+          git push
