@@ -1,7 +1,7 @@
 baseurl: 'https://niravraval.com/'
 languageCode: en-us
 title: Nirav Raval
-theme: paperMod
+theme: PaperMod
 enableRobotsTXT: true
 enableEmoji: true
 analytics:
