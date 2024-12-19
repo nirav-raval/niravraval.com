@@ -85,9 +85,6 @@ params:
     URL: 'https://github.com/nirav-raval/niravraval.com/tree/master/content'
     Text: Suggest Changes
     appendFilePath: true
-  analytics:
-      google:
-          SiteVerificationTag: "G-R8SM2MBWXY"
   fuseOpts:
     isCaseSensitive: false
     shouldSort: true
@@ -116,6 +113,9 @@ outputs:
     - HTML
     - RSS
     - JSON
+services:
+  googleAnalytics:
+    ID: "G-R8SM2MBWXY"
 menu:
   main:
     - name: Blog
