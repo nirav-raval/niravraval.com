@@ -4,9 +4,6 @@ title: Nirav Raval
 theme: PaperMod
 enableRobotsTXT: true
 enableEmoji: true
-analytics:
-      google:
-          SiteVerificationTag: "G-R8SM2MBWXY"
 enableGitInfo: true
 canonifyURLs: true
 pagination:
@@ -127,3 +124,7 @@ menu:
     - name: Search
       url: /search/
       weight: 30
+      
+  analytics:
+      google:
+          SiteVerificationTag: "G-R8SM2MBWXY"
