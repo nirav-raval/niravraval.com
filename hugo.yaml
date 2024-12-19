@@ -85,6 +85,9 @@ params:
     URL: 'https://github.com/nirav-raval/niravraval.com/tree/master/content'
     Text: Suggest Changes
     appendFilePath: true
+  analytics:
+      google:
+          SiteVerificationTag: "G-R8SM2MBWXY"
   fuseOpts:
     isCaseSensitive: false
     shouldSort: true
@@ -124,7 +127,3 @@ menu:
     - name: Search
       url: /search/
       weight: 30
-      
-  analytics:
-      google:
-          SiteVerificationTag: "G-R8SM2MBWXY"
