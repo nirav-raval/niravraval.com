@@ -1,0 +1,4 @@
+- article:
+    page_views: "Views"
+- id: edit_post
+  translation: "Edit"

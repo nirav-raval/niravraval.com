@@ -32,6 +32,7 @@ params:
     - 'https://niravraval.com/Images/Nirav_about.jpg'
   DateFormat: 'January 2, 2006'
   defaultTheme: light
+  goatcounter: "niravraval"
   disableThemeToggle: false
   ShowFullTextinRSS: true
   ShowReadingTime: true

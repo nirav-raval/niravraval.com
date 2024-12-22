@@ -11,8 +11,58 @@
     </image>
     <generator>Hugo -- 0.139.2</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 30 Nov 2024 17:52:41 -0500</lastBuildDate>
+    <lastBuildDate>Wed, 18 Dec 2024 22:28:53 -0500</lastBuildDate>
     <atom:link href="http://localhost:1313/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to Use PowerShell Start-Job for Background Tasks</title>
+      <link>http://localhost:1313/blog/2024/december/how-to-use-powershell-start-job-for-background-tasks/</link>
+      <pubDate>Wed, 18 Dec 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/2024/december/how-to-use-powershell-start-job-for-background-tasks/</guid>
+      <description>&lt;p&gt;PowerShell is one of my favorite tool when it comes to automation. It has lot of functionalities and one of its cool features is &lt;code&gt;Start-Job&lt;/code&gt;. This will let you run tasks in the background while you keep using PowerShell for other things.&lt;/p&gt;
+&lt;h2 id=&#34;start-job-is-ideal-to-use-when-&#34;&gt;Start-Job is ideal to use when &amp;hellip;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Tasks take a long time to complete&lt;/li&gt;
+&lt;li&gt;You want to avoid module conflicts by isolating them in separate jobs&lt;/li&gt;
+&lt;li&gt;You need to resolve assembly conflicts by running jobs in isolated processes&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;how-to-use-start-job&#34;&gt;How to Use &lt;code&gt;Start-Job&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;I will try to explain this with a simple example below.&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>PowerShell is one of my favorite tool when it comes to automation. It has lot of functionalities and one of its cool features is <code>Start-Job</code>. This will let you run tasks in the background while you keep using PowerShell for other things.</p>
+<h2 id="start-job-is-ideal-to-use-when-">Start-Job is ideal to use when &hellip;</h2>
+<ul>
+<li>Tasks take a long time to complete</li>
+<li>You want to avoid module conflicts by isolating them in separate jobs</li>
+<li>You need to resolve assembly conflicts by running jobs in isolated processes</li>
+</ul>
+<h2 id="how-to-use-start-job">How to Use <code>Start-Job</code></h2>
+<p>I will try to explain this with a simple example below.</p>
+<h3 id="example--displaying-the-date-and-time-using-get-date">Example : Displaying the Date and Time using Get-Date</h3>
+<p>Below examples shows how to run a background job in PowerShell to get the current date and time. It uses <code>Start-Job</code> to begin the job, waits for it with <code>Wait-Job</code>, gets the result using <code>Receive-Job</code>, and cleans up with <code>Remove-Job</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ps" data-lang="ps"><span style="display:flex;"><span><span style="color:#a6e22e">#</span> <span style="color:#a6e22e">Start</span> <span style="color:#a6e22e">a</span> <span style="color:#a6e22e">background</span> <span style="color:#a6e22e">job</span> <span style="color:#a6e22e">to</span> <span style="color:#a6e22e">display</span> <span style="color:#a6e22e">the</span> <span style="color:#a6e22e">current</span> <span style="color:#a6e22e">date</span> <span style="color:#a6e22e">and</span> <span style="color:#a6e22e">time</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">$job</span> <span style="color:#a6e22e">=</span> <span style="color:#a6e22e">Start-Job</span> <span style="color:#a6e22e">-ScriptBlock</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Get-Date</span> 
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">#</span> <span style="color:#a6e22e">Check</span> <span style="color:#a6e22e">if</span> <span style="color:#a6e22e">the</span> <span style="color:#a6e22e">job</span> <span style="color:#a6e22e">is</span> <span style="color:#a6e22e">complete</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Write-Output</span> <span style="color:#a6e22e">&#34;Job</span> <span style="color:#a6e22e">ID:</span> <span style="color:#a6e22e">$</span><span style="color:#e6db74">($job.Id)</span> <span style="color:#a6e22e">started.&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Wait-Job</span> <span style="color:#a6e22e">-Job</span> <span style="color:#a6e22e">$job</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">#</span> <span style="color:#a6e22e">Get</span> <span style="color:#a6e22e">the</span> <span style="color:#a6e22e">result</span> <span style="color:#a6e22e">of</span> <span style="color:#a6e22e">the</span> <span style="color:#a6e22e">job</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">$jobResult</span> <span style="color:#a6e22e">=</span> <span style="color:#a6e22e">Receive-Job</span> <span style="color:#a6e22e">-Job</span> <span style="color:#a6e22e">$job</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Write-Output</span> <span style="color:#a6e22e">&#34;The</span> <span style="color:#a6e22e">current</span> <span style="color:#a6e22e">date</span> <span style="color:#a6e22e">and</span> <span style="color:#a6e22e">time</span> <span style="color:#a6e22e">is:</span> <span style="color:#a6e22e">$jobResult&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">#</span> <span style="color:#a6e22e">Clean</span> <span style="color:#a6e22e">up</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Remove-Job</span> <span style="color:#a6e22e">-Job</span> <span style="color:#a6e22e">$job</span>
+</span></span></code></pre></div><h2 id="output">Output</h2>
+<p><img alt="PS_Start_Job" loading="lazy" src="/Images/blog_images/PS_Start_Job.jpg"></p>
+<p>It’s quite simple, isn’t it? Just make sure to use <code>Remove-Job</code> to clean up after your job is done. If you skip this step, it can lead to duplication or conflicts with other jobs.</p>
+<h3 id="why-i-recommend-to-use-jobs">Why I recommend to use Jobs?</h3>
+<p>Numerous reasons but, the major reason is that some PowerShell modules can <a href="https://github.com/pnp/powershell/issues/3637">conflict</a> when loaded together in the same session. For example, Microsoft Graph and PnP PowerShell might have overlapping dependencies. Running these modules or assemblies in separate jobs make sures that they operate independently without issues.</p>
+<p>Try it out and let me know how you use it in your own scripts!</p>
+<hr>
+]]></content:encoded>
+    </item>
     <item>
       <title>forEach vs for Loops for Async Operations in JavaScript</title>
       <link>http://localhost:1313/blog/2024/november/foreach-vs-for-loops-for-async-operations-in-javascript/</link>
