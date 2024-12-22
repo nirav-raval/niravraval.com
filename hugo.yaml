@@ -128,3 +128,6 @@ menu:
     - name: Search
       url: /search/
       weight: 30
+    - name: Stats
+      url: https://stats.niravraval.com
+      weight: 30
