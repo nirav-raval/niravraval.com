@@ -11,7 +11,7 @@ showToc: false
 TocOpen: false
 draft: false
 hidemeta: false
-comments: false
+comments: true
 description: 
 canonicalURL:
 disableHLJS: false
