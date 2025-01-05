@@ -2,8 +2,7 @@ name: Create Monthly Folder
 
 on:
   schedule:
- 
-    - cron: "0 7 1 * *"
+    - cron: "0 7 1 * *"  # Runs at 7:00 AM UTC on the 1st of every month
 
 jobs:
   create-folder:
@@ -13,21 +12,26 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Create year and month folders
+      - name: Create year and month folders in blog and images
         run: |
           CURRENT_YEAR=$(date +'%Y')
           CURRENT_MONTH=$(date +'%B')  # Full month name
-          TARGET_DIR="content/blog/$CURRENT_YEAR/$CURRENT_MONTH"
+          
+          # Define target directories
+          BLOG_DIR="content/blog/$CURRENT_YEAR/$CURRENT_MONTH"
+          IMAGE_DIR="static/Images/blog_images/$CURRENT_YEAR/$CURRENT_MONTH"
 
-          # Create the directory structure
-          mkdir -p $TARGET_DIR
+          # Create the directory structures
+          mkdir -p $BLOG_DIR
+          mkdir -p $IMAGE_DIR
 
-          # Add a placeholder file to ensure the folder is tracked in Git
-          echo "Folder for $CURRENT_YEAR/$CURRENT_MONTH" > $TARGET_DIR/.placeholder
+          # Add placeholder files to ensure folders are tracked in Git
+          echo "Folder for $CURRENT_YEAR/$CURRENT_MONTH" > $BLOG_DIR/.placeholder
+          echo "Folder for $CURRENT_YEAR/$CURRENT_MONTH" > $IMAGE_DIR/.placeholder
 
           # Commit and push the changes
           git config --global user.name "Nirav-raval"
           git config --global user.email "niravraval34@gmail.com"
           git add .
-          git commit -m "Added folder for $CURRENT_YEAR/$CURRENT_MONTH"
+          git commit -m "Added folders for $CURRENT_YEAR/$CURRENT_MONTH in blog and images"
           git push
