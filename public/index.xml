@@ -11,8 +11,377 @@
     </image>
     <generator>Hugo -- 0.139.2</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 18 Dec 2024 22:28:53 -0500</lastBuildDate>
+    <lastBuildDate>Mon, 06 Jan 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Create a Custom Declarative Agent with Breaking Bad API</title>
+      <link>http://localhost:1313/blog/2025/january/create-a-custom-declarative-agent-with-breaking-bad-api/</link>
+      <pubDate>Mon, 06 Jan 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/2025/january/create-a-custom-declarative-agent-with-breaking-bad-api/</guid>
+      <description>&lt;p&gt;Back in November 2024, Microsoft introduced new &lt;a href=&#34;https://techcommunity.microsoft.com/blog/microsoft365copilotblog/introducing-new-agents-in-microsoft-365/4296918?utm_source=chatgpt.com&#34;&gt;AI-powered agents&lt;/a&gt; in Microsoft 365 Copilot.  &lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://learn.microsoft.com/en-us/microsoft-365-copilot/extensibility/overview-declarative-agent&#34;&gt;Declarative agents&lt;/a&gt; in Microsoft 365 Copilot are a type of AI assistant that helps businesses automate tasks and workflows by following predefined instructions and using enterprise data. They work within tools like Teams, Word, and PowerPoint to boost productivity. For example, a customer service agent can provide real-time order updates using an API plugin, to improve support quality. &lt;/p&gt;</description>
+      <content:encoded><![CDATA[<p>Back in November 2024, Microsoft introduced new <a href="https://techcommunity.microsoft.com/blog/microsoft365copilotblog/introducing-new-agents-in-microsoft-365/4296918?utm_source=chatgpt.com">AI-powered agents</a> in Microsoft 365 Copilot.  </p>
+<p><a href="https://learn.microsoft.com/en-us/microsoft-365-copilot/extensibility/overview-declarative-agent">Declarative agents</a> in Microsoft 365 Copilot are a type of AI assistant that helps businesses automate tasks and workflows by following predefined instructions and using enterprise data. They work within tools like Teams, Word, and PowerPoint to boost productivity. For example, a customer service agent can provide real-time order updates using an API plugin, to improve support quality. </p>
+<p>Today, we will create a <strong>custom declarative agent</strong> using an open-source API to demonstrate how agents can interact with external data sources.</p>
+<p><strong>Open Source API Overview:</strong></p>
+<p>We&rsquo;ll be using the <a href="https://breakingbadquotes.xyz/">Breaking Bad API</a>, an open-source API that provides quotes from the popular TV series Breaking Bad. The API response will return a quote along with the author&rsquo;s name (character name) from the series.</p>
+<p>👇<strong>Sample Response from API</strong> 👇</p>
+<p><img alt="Custom Agent- CA1" loading="lazy" src="/Images/blog_images/2025/January/CA-1.png"></p>
+<p>Let’s get started!</p>
+<h2 id="step-1-creating-a-custom-declarative-agent-using-microsoft-toolkit-extension">Step 1: Creating a Custom Declarative Agent Using Microsoft Toolkit Extension</h2>
+<p>Let&rsquo;s begin by creating a custom declarative agent using the <a href="https://learn.microsoft.com/en-us/microsoftteams/platform/toolkit/install-teams-toolkit?tabs=vscode">Microsoft Toolkit extension</a>. Follow these step-by-step instructions to set up your agent: </p>
+<ol>
+<li><strong>Launch the Microsoft Toolkit Extension</strong> and click on <em><code>Create a New App</code></em> under <strong>Create a Project or Explore Samples</strong></li>
+<li>Choose <strong>Agent</strong> as your app type</li>
+<li>Select <strong>Declarative Agent</strong> to build an agent powered by Microsoft 365 Copilot</li>
+<li>Click <strong>Add Plugin</strong> to connect external APIs to your agent</li>
+<li>Choose <strong>Start with a New API</strong> to set up a fresh connection for your agent</li>
+<li>Pick <strong>None</strong> for authentication since the Breaking Bad API doesn’t require it</li>
+<li>Opt for <strong>TypeScript</strong> as programming language for a smoother experience</li>
+<li>Select a folder to store project files (pro tip: avoid saving it in the C drive for better organization)</li>
+<li>Finally, give your agent a name like <strong>BreakingBad Agent</strong> and hit the setup button</li>
+</ol>
+<p>Wohooo! 🎉 You&rsquo;ve Successfully Created Your Declarative Agent with an API Plugin! After completing the setup, a new window will pop up in VS Code with your project structure ready. But wait—there&rsquo;s more! </p>
+<p>By default, the project folder includes a demo API plugin. However, this plugin uses a local json file as its data source. Since we want to fetch real-time data from an actual API, we will need to remove the existing demo setup.</p>
+<p><strong>Clean Up the Default Files</strong></p>
+<p>Now that your declarative agent is set up, it&rsquo;s time to remove the default files that use local data. Since we will be working with a live API instead, delete the following files from your project directory: </p>
+<ul>
+<li>
+<p>appPackage &gt; apiSpecificationfile &gt; <code>repair.yml</code> </p>
+</li>
+<li>
+<p>appPackage &gt; <code>repairDeclarativeAgent.json</code> </p>
+</li>
+<li>
+<p>src &gt; <code>RepairsData.json</code> </p>
+</li>
+<li>
+<p>src &gt; functions &gt; <code>repairs.ts</code></p>
+</li>
+</ul>
+<p><img alt="Custom Agent- CA2" loading="lazy" src="/Images/blog_images/2025/January/CA-2.png"></p>
+<blockquote>
+<p>Don’t worry about the files we just deleted. We’re going to create the essential files needed for our Breaking Bad Agent from scratch. Up next, we’ll fetch real-time data directly from the API and configure the agent to use it.</p>
+</blockquote>
+<h2 id="step-2-create-a-new-function-file-for-the-breaking-bad-api-integration">Step 2: Create a New Function File for the Breaking Bad API Integration</h2>
+<p>Next, we need to create a new file where our agent will interact with the Breaking Bad API. </p>
+<ol>
+<li>Navigate to: src &gt; functions</li>
+<li>Create a New File: Name it <code>quotes.ts</code></li>
+</ol>
+<p>Now, copy and paste the following code into <code>quotes.ts</code>. This function will act as an Azure Function responsible for sending requests and receiving quotes from the live Breaking Bad API.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">app</span>, <span style="color:#a6e22e">HttpResponseInit</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;@azure/functions&#34;</span>; 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">quotes</span>()<span style="color:#f92672">:</span> <span style="color:#a6e22e">Promise</span>&lt;<span style="color:#f92672">HttpResponseInit</span>&gt; { 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">breakingbadResponse</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;https://api.breakingbadquotes.xyz/v1/quotes&#39;</span>); 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">breakingbadData</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">breakingbadResponse</span>.<span style="color:#a6e22e">json</span>(); 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> { 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">status</span>: <span style="color:#66d9ef">200</span>, 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">jsonBody</span><span style="color:#f92672">:</span> { 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">quotes</span>: <span style="color:#66d9ef">breakingbadData</span>, 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  }, 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  }; 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>} 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">http</span>(<span style="color:#e6db74">&#34;quotes&#34;</span>, { 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;GET&#34;</span>], 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">authLevel</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;anonymous&#34;</span>, 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">handler</span>: <span style="color:#66d9ef">quotes</span>, 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><blockquote>
+<p>If you encounter the error <code>Cannot find module '@azure/functions' or its corresponding type</code>, don’t worry! This is a common issue, and the required modules will be automatically installed when you run the agent for the first time.</p>
+</blockquote>
+<h2 id="step-3-create-the-api-specification-file">Step 3: Create the API Specification File</h2>
+<p>Now, let&rsquo;s create the API specification file that will define how the declarative agent interacts with the Breaking Bad API.</p>
+<ol>
+<li>Navigate to: appPackage &gt; apiSpecificationfile</li>
+<li>Create a New File: Name it <code>quotes.yml</code></li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#ae81ff">openapi: 3.0.0 </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">info: </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">title: Breaking bad Quote API </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">description: Random Quote api from the Breaking Bad TV series with author </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">version: 1.0.0 </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">servers: </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">url: ${{OPENAPI_SERVER_URL}}/api </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">description: The quotes api server </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">paths: </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">/quotes: </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">get: </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">operationId: getQuotes </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">summary: get all breaking bad quotes with author </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">description: Returns a single random quote from the Breaking Bad TV series with author </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">responses: </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;200&#39;</span>: 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">description: A random quote from the Breaking Bad TV series with author </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">content: </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">application/json: </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>              <span style="color:#ae81ff">schema: </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#ae81ff">type: object </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#ae81ff">properties: </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#ae81ff">results: </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#ae81ff">type: array </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#ae81ff">items: </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                      <span style="color:#ae81ff">type: object </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                      <span style="color:#ae81ff">properties: </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#ae81ff">quote: </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                          <span style="color:#ae81ff">type: string </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                          <span style="color:#ae81ff">description: Breaking bad quote with author </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#ae81ff">author: </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                          <span style="color:#ae81ff">type: string </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                          <span style="color:#ae81ff">description: The author name of the quote</span>
+</span></span></code></pre></div><h2 id="step-4-update-theai-pluginjsonfile">Step 4: Update the ai-plugin.json File</h2>
+<p>Now, let&rsquo;s update the ai-plugin.json file so that the declarative agent is properly linked with the Breaking Bad API and the Azure Function. </p>
+<ol>
+<li>Navigate to: appPackage. </li>
+<li>Open the File: Open <code>ai-plugin.json</code></li>
+<li>Remove: The <code>&quot;Static_template&quot;</code> entry</li>
+<li>Update: The runtimes URL and the function name as shown below:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{ 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;$schema&#34;</span>: <span style="color:#e6db74">&#34;[https://developer.microsoft.com/json-schemas/copilot/plugin/v2.2/schema.json](https://developer.microsoft.com/json-schemas/copilot/plugin/v2.2/schema.json)&#34;</span>, 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;schema_version&#34;</span>: <span style="color:#e6db74">&#34;v2.2&#34;</span>, 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;namespace&#34;</span>: <span style="color:#e6db74">&#34;Breakingbadquotes&#34;</span>, 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name_for_human&#34;</span>: <span style="color:#e6db74">&#34;Breakingbadquotes Plugin&#34;</span>, 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;description_for_human&#34;</span>: <span style="color:#e6db74">&#34;Generate random quotes from the Breaking Bad TV series.&#34;</span>, 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;description_for_model&#34;</span>: <span style="color:#e6db74">&#34;Plugin for generating random quotes from the Breaking Bad TV series.&#34;</span>, 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;functions&#34;</span>: [ 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    { 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;getQuotes&#34;</span>, 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Returns a random quote with author from the Breaking Bad TV series.&#34;</span>, 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;capabilities&#34;</span>: { 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;response_semantics&#34;</span>: { 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;data_path&#34;</span>: <span style="color:#e6db74">&#34;$.quotes&#34;</span>, 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;properties&#34;</span>: { 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;$.quote&#34;</span>, 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;subtitle&#34;</span>: <span style="color:#e6db74">&#34;$.author&#34;</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>          }  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        } 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      }  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    }     
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  ], 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;runtimes&#34;</span>: [ 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    { 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;OpenApi&#34;</span>, 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;auth&#34;</span>: { 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;None&#34;</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      }, 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;spec&#34;</span>: { 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;url&#34;</span>: <span style="color:#e6db74">&#34;apiSpecificationFile/quotes.yml&#34;</span>, 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;progress_style&#34;</span>: <span style="color:#e6db74">&#34;ShowUsageWithInputAndOutput&#34;</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      }, 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;run_for_functions&#34;</span>: [<span style="color:#e6db74">&#34;getQuotes&#34;</span>] 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    } 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  ], 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;capabilities&#34;</span>: { 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;conversation_starters&#34;</span>: [] 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  } 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="step-5-update-the-manifestjson-file">Step 5: Update the manifest.json File</h2>
+<p>The manifest.json file serves as the app manifest for your declarative agent. It is specifying the agent’s identity and the declarative agent configuration files. We&rsquo;ll update it to reflect the Breaking Bad agent setup.</p>
+<ol>
+<li>Navigate to: appPackage</li>
+<li>Open the File: open <code>manifest.json</code></li>
+<li>Update: The <code>&quot;copilotAgents&quot;</code> section as shown below:</li>
+</ol>
+<blockquote>
+<p>You can also update the icon of your application in the same file. First, download any image and make sure it&rsquo;s <strong>192x192 pixels</strong>. Replace the existing icon with your new image by saving it as <strong>color.png</strong> in your project folder. If you choose to change the name of the image, make sure to update it in the application <strong>manifest.json</strong> file.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{ 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;copilotAgents&#34;</span>: { 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;declarativeAgents&#34;</span>: [ 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      { 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;breakingBadDeclarativeAgent&#34;</span>, 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;file&#34;</span>: <span style="color:#e6db74">&#34;breakingBadDeclarativeAgent.json&#34;</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      } 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ] 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  } 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="step-6-create-the-quotesdeclarativeagentjson-file">Step 6: Create the quotesDeclarativeAgent.json File</h2>
+<p>We need to create the agent manifest file which defines how the declarative agent behaves and interacts with the Breaking Bad API.</p>
+<ol>
+<li>Navigate to: appPackage</li>
+<li>Create a New File: Name it <code>quotesDeclarativeAgent.json</code></li>
+</ol>
+<p><strong>Add the Following Content:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{ 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;$schema&#34;</span>: <span style="color:#e6db74">&#34;[https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.2/schema.json](https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.2/schema.json)&#34;</span>, 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;version&#34;</span>: <span style="color:#e6db74">&#34;v1.2&#34;</span>, 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Breaking badquotes&#34;</span>, 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;This declarative agent helps you get a random quote from the Breaking Bad TV series.&#34;</span>, 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;instructions&#34;</span>: <span style="color:#e6db74">&#34;$[file(&#39;instruction.txt&#39;)]&#34;</span>, 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;conversation_starters&#34;</span>: [ 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>          { 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;text&#34;</span>: <span style="color:#e6db74">&#34;Give me a random quote from Breaking Bad with author name?&#34;</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        }    
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ], 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;actions&#34;</span>: [ 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        { 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;quoteplugin&#34;</span>, 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;file&#34;</span>: <span style="color:#e6db74">&#34;ai-plugin.json&#34;</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        } 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ] 
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="step-7-update-the-instructionstxt-file">Step 7: Update the instructions.txt File</h2>
+<p>The <code>instructions.txt</code> file plays a crucial role in declarative agent setup. It defines how the agent should behave, respond to user queries, and interact with the Breaking Bad API. This make sures that the agent stays focused on its purpose and maintains a consistent user experience.</p>
+<p><strong>Update it with the Following Content:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>You are an assistant specialized in retrieving quotes from the provided API, ensuring a smooth and delightful user experience. Your responses should include the quote and its author. 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Guidelines: 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- Exclusive API Use: Do not perform web searches; rely solely on the provided API for data retrieval. Do not proceess any other request. This is solely for breaking bad quotes nothing else, keep in mind! 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- Response Format: Present the quote followed by the author&#39;s name.  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- Error Handling: If the API does not return a quote, respond with: &#34;I&#39;m sorry, I couldn&#39;t retrieve a quote at this moment.&#34; 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- User Interaction: Maintain a friendly and engaging tone to ensure a delightful user experience.
+</span></span></code></pre></div><h2 id="showcase-the-final-outcome-of-all-efforts">Showcase: The Final Outcome of All Efforts</h2>
+<p>To run and debug your declarative agent, click on the <code>Run and Debug</code> icon in VS Code, which can be found on the left sidebar. The process will take approximately <strong>~10-15 minutes</strong> to initialize. During this time, a sign-in prompt will appear where you’ll need to log in with your Microsoft 365 account credentials.</p>
+<p><img alt="Custom Agent- CA3" loading="lazy" src="/Images/blog_images/2025/January/CA-3.png"></p>
+<blockquote>
+<p>Once signed in, if you are not automatically redirected, you can manually visit <a href="https://office.com/chat?auth=2">office.com/chat?auth=2</a> to access the Copilot interface.</p>
+</blockquote>
+<p>Select the prompt we defined earlier, and it will prompt you to process the query. Click on <code>Always Allow</code> to proceed.</p>
+<p><img alt="Custom Agent- CA4" loading="lazy" src="/Images/blog_images/2025/January/CA-4.png"></p>
+<p><strong>Final Output:</strong></p>
+<p><img alt="Custom Agent- CA5" loading="lazy" src="/Images/blog_images/2025/January/CA-5.png"></p>
+<p><strong>How to Verify if It&rsquo;s Working and Fetching Data from the API</strong></p>
+<ul>
+<li><strong>Verify via Localhost:</strong> Open the terminal in <strong>VS Code</strong> and click on <strong>Start Backend</strong>. Once it&rsquo;s running, you&rsquo;ll see the <strong>local host URL</strong>, which should begin with <code>localhost:7071/api/quotes</code>. Open this URL in your browser, and it will return a JSON response with the quote data.</li>
+<li><strong>Verify via Agent Request:</strong> Another way to check is by sending a request from the agent. This will invoke the <code>getQuote</code> function, which generates a unique ID each time. The response will include text indicating that the function was programmatically called.</li>
+</ul>
+<h2 id="bonus-how-does-the-breaking-bad-quotes-agent-work">Bonus: How does the breaking bad quotes agent work?</h2>
+<p>When a user requests a Breaking Bad quote in Microsoft 365 Copilot, the agent works in a few simple steps: </p>
+<ol>
+<li>Manifest Check: The agent starts by checking its task list in the manifest file</li>
+<li>API Connection: It then refers to the API specification to understand how to connect to the Breaking Bad API</li>
+<li>Data Fetch: The agent sends a request to an Azure Function, which fetches a random quote and the author’s name from the API</li>
+<li>Data Return: The quote and author are returned in a structured JSON format</li>
+<li>User Display: Finally, the agent displays the quote clearly in the Copilot interface</li>
+</ol>
+<h2 id="conclusion">Conclusion</h2>
+<p>It’s been a bit of a ride, hasn’t it? But hey, we’ve finally done it! We have successfully created a declarative agent using the Breaking Bad API, but the process can be applied to any <strong>API</strong>, including those requiring <strong>authentication</strong> with API key or OAuth.</p>
+<p>if you hit any bumps along the way, don’t hesitate to drop a comment below. If you found this helpful, give it a thumbs up or click on your favorite emoji button below. Good luck, and happy coding!</p>
+<p><strong>Appendix</strong></p>
+<p>This post is inspired by the following resources:</p>
+<ul>
+<li><a href="https://techcommunity.microsoft.com/blog/microsoft365copilotblog/introducing-new-agents-in-microsoft-365/4296918?utm_source=chatgpt.com">Introducing New Agents in Microsoft 365</a></li>
+<li><a href="https://microsoft.github.io/TechExcel-Extending-Copilot-for-Microsoft365/">Extending Copilot for Microsoft 365</a></li>
+<li><a href="https://www.voitanos.io/workshop-microsoft-365-copilot-build-declarative-agents/">Workshop on Building Declarative Agents for Microsoft 365 Copilot</a></li>
+<li><a href="https://breakingbadquotes.xyz/">Breaking Bad Quotes API</a></li>
+<li><a href="https://icons8.com/icon/21732/breaking-bad/">Breaking Bad Icon by Icons8</a></li>
+</ul>
+]]></content:encoded>
+    </item>
     <item>
       <title>How to Use PowerShell Start-Job for Background Tasks</title>
       <link>http://localhost:1313/blog/2024/december/how-to-use-powershell-start-job-for-background-tasks/</link>
@@ -37,7 +406,7 @@
 <h2 id="how-to-use-start-job">How to Use <code>Start-Job</code></h2>
 <p>I will try to explain this with a simple example below.</p>
 <h3 id="example--displaying-the-date-and-time-using-get-date">Example : Displaying the Date and Time using Get-Date</h3>
-<p>Below examples shows how to run a background job in PowerShell to get the current date and time. It uses <code>Start-Job</code> to begin the job, waits for it with <code>Wait-Job</code>, gets the result using <code>Receive-Job</code>, and cleans up with <code>Remove-Job</code>.</p>
+<p>Below example shows how to run a background job in PowerShell to get the current date and time. It uses <code>Start-Job</code> to begin the job, waits for it with <code>Wait-Job</code>, gets the result using <code>Receive-Job</code>, and cleans up with <code>Remove-Job</code>.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ps" data-lang="ps"><span style="display:flex;"><span><span style="color:#a6e22e">#</span> <span style="color:#a6e22e">Start</span> <span style="color:#a6e22e">a</span> <span style="color:#a6e22e">background</span> <span style="color:#a6e22e">job</span> <span style="color:#a6e22e">to</span> <span style="color:#a6e22e">display</span> <span style="color:#a6e22e">the</span> <span style="color:#a6e22e">current</span> <span style="color:#a6e22e">date</span> <span style="color:#a6e22e">and</span> <span style="color:#a6e22e">time</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">$job</span> <span style="color:#a6e22e">=</span> <span style="color:#a6e22e">Start-Job</span> <span style="color:#a6e22e">-ScriptBlock</span> {

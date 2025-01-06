@@ -46,7 +46,7 @@ PowerShell is one of my favorite tool when it comes to automation. It has lot of
 I will try to explain this with a simple example below.
 ### Example : Displaying the Date and Time using Get-Date
 
-Below examples shows how to run a background job in PowerShell to get the current date and time. It uses `Start-Job` to begin the job, waits for it with `Wait-Job`, gets the result using `Receive-Job`, and cleans up with `Remove-Job`. 
+Below example shows how to run a background job in PowerShell to get the current date and time. It uses `Start-Job` to begin the job, waits for it with `Wait-Job`, gets the result using `Receive-Job`, and cleans up with `Remove-Job`. 
 
 ```ps
 # Start a background job to display the current date and time
