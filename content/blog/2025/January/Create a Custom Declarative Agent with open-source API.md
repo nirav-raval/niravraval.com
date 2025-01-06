@@ -1,5 +1,5 @@
 ---
-title: Create a Custom Declarative Agent with Breaking Bad API
+title: Create a Custom Declarative Agent with open-source API
 date: 2025-01-06
 tags:
   - DeclarativeAgent
