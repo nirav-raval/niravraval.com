@@ -28,17 +28,29 @@ cover:
   hidden: true
 ---
 
-![Nirav Raval](/Images/Nirav_about.jpg)
  
+Hello, I’m Nirav. I’m a Developer focused on the Microsoft 365 domain, and I work at [**2ToLead**](https://www.2ToLead.com) Consulting firm located in Toronto, Canada. In addition to working on development and consultation projects, I love writing blogs and singing songs.
 
-Hello! My name is Nirav Raval, and I’m a Microsoft 365 Developer at [**2ToLead**](https://www.2ToLead.com). With over 4 years of experience specializing in SharePoint, I’m passionate about exploring and mastering Microsoft 365 tools and technologies.
+I’ve been working with Microsoft technologies for around 4 years. I started my career as a Developer. I’ve started adopting multiple technologies throughout my career. My areas of expertise include **SharePoint Framework (SPFx)**, **React**, **PowerShell**, **Azure DevOps**, **PowerApps** and **Robotic Process Automation** with Power Platform.
 
-My expertise spans **React**, **PowerShell**, **SharePoint Framework**, **Azure**, and **Power Platform**, and I’m constantly on the lookout for creative, hacky ways to optimize and tweak systems for better performance and usability. I thrive on innovation and love diving into the details of how technologies work.
+I hold the following certifications:
 
-This space is dedicated to sharing my findings, tips, tricks, and insights, not limited Microsoft ecosystem. Whether you’re looking to learn something new or want to collaborate, you’re in the right place!
+- [Microsoft Certified: Power Platform App Maker Associate](https://learn.microsoft.com/en-us/users/nrvrvl/credentials/66B6FA2C51333F2E)
+- [Microsoft 365 Certified: Teams Administrator Associate](https://learn.microsoft.com/api/credentials/share/en-us/nrvrvl/BDC078CFACACCD79?sharingId) 
+- [Microsoft 365 Certified: Fundamentals](https://learn.microsoft.com/api/credentials/share/en-us/nrvrvl/241C9876DD963464)
+- [Microsoft Certified: Azure Fundamentals](https://www.credly.com/badges/173b861e-c889-40ae-a3ff-eae59701c303?source=linked_in_profile)
+- [Microsoft Certified: Azure AI Fundamentals](https://learn.microsoft.com/api/credentials/share/en-ca/nrvrvl/B023BD34DDE9A11F?sharingId=F70DBDD87F942163)
+- [Microsoft Certified : Power Platform Fundamentals](https://www.youracclaim.com/badges/79b37252-59b1-4a1d-8854-3d19dce16362?source=linked_in_profile)
+- [Microsoft Certified : Create and Manage Canvas Apps with Power Apps](https://learn.microsoft.com/api/credentials/share/en-us/nrvrvl/E489BAC41388B8C?sharingId)
+- [Microsoft Certified : Create and manage automated processes by using Power Automate](https://learn.microsoft.com/api/credentials/share/en-us/nrvrvl/F28485F2A0F4BF76?sharingId)
 
-Don't Hesitate to send me a [Hi!](mailto:contact@niravraval.com).
+<img src="/Images/About_me/Badge_Associate.png" style="display: inline-block; width: 30%;" />
+<img src="/Images/About_me/Badge_Fundamental.png" style="display: inline-block; width: 30%" />
+<img src="/Images/About_me/Badge_AppliedSkills.png" style="display: inline-block; width: 30%;" />
+
+For a long time, I’ve had the thought of creating a blog to share knowledge and help others. I’m building this space to discuss the problems I solve. While it’s primarily focused on the Microsoft ecosystem, I’ll also share tips and tricks that I find helpful across other areas.
+
+Feel free to send me a [Hi!](mailto:contact@niravraval.com).
 
 Enjoy! 😺
-
-**Nirav**
+Nirav

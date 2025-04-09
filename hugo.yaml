@@ -63,18 +63,15 @@ params:
   homeInfoParams:
     Title: "Hi, I'm Nirav 👋"
     Content:  >
-        🌏 Living and working in Canada
+
+        👨‍💻 Developer at [2ToLead.](https://2tolead.com)  
+
+        🔧 ReactJS | SPFx | Azure DevOps | PowerApps | Power Platform | PowerBI 
         
         
-        🧑‍💼 Microsoft 365 Developer at [2ToLead.](https://2tolead.com)
-
-
-        💻 SharePoint Specialist | React Developer | Power Platform Enthusiast
-
-
-        💽 Always learning, experimenting, and finding better ways to get things done
-
-
+        📌 Exploring New technologies, and building Smarter solutions
+        
+        
         [More...](https://niravraval.com/about)
       
   cover:
@@ -105,8 +102,6 @@ params:
       url: "https://github.com/nirav-raval"
     - name: Mail
       url: mailto:contact@niravraval.com
-    - name: x
-      url: "https://x.com/nrvrvl"
     - name: RSS
       url: index.xml
 outputs:
