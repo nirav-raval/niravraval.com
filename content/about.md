@@ -28,8 +28,9 @@ cover:
   hidden: true
 ---
 
- 
-Hello, I’m Nirav. I’m a Developer focused on the Microsoft 365 domain, and I work at [**2ToLead**](https://www.2ToLead.com) Consulting firm located in Toronto, Canada. In addition to working on development and consultation projects, I love writing blogs and singing songs.
+ {{< left-image src="/Images/About_me/Nirav_about.png" alt=" " >}}
+
+Hi, I’m Nirav. I’m a Developer focused on the Microsoft 365 domain, and I work at [**2ToLead**](https://www.2ToLead.com) Consulting firm located in Toronto, Canada. In addition to working on development and consultation projects, I love writing blogs and singing songs.
 
 I’ve been working with Microsoft technologies for around 4 years. I started my career as a Developer. I’ve started adopting multiple technologies throughout my career. My areas of expertise include **SharePoint Framework (SPFx)**, **React**, **PowerShell**, **Azure DevOps**, **PowerApps** and **Robotic Process Automation** with Power Platform.
 
@@ -44,13 +45,14 @@ I hold the following certifications:
 - [Microsoft Certified : Create and Manage Canvas Apps with Power Apps](https://learn.microsoft.com/api/credentials/share/en-us/nrvrvl/E489BAC41388B8C?sharingId)
 - [Microsoft Certified : Create and manage automated processes by using Power Automate](https://learn.microsoft.com/api/credentials/share/en-us/nrvrvl/F28485F2A0F4BF76?sharingId)
 
-<img src="/Images/About_me/Badge_Associate.png" style="display: inline-block; width: 30%;" />
-<img src="/Images/About_me/Badge_Fundamental.png" style="display: inline-block; width: 30%" />
-<img src="/Images/About_me/Badge_AppliedSkills.png" style="display: inline-block; width: 30%;" />
-
+{{< image src="/Images/About_me/Badge_Associate.png" alt="Associate Badge" >}}
+{{< image src="/Images/About_me/Badge_Fundamental.png" alt="Associate Badge" >}}
+{{< image src="/Images/About_me/Badge_AppliedSkills.png" alt="Associate Badge" >}}
+ 
 For a long time, I’ve had the thought of creating a blog to share knowledge and help others. I’m building this space to discuss the problems I solve. While it’s primarily focused on the Microsoft ecosystem, I’ll also share tips and tricks that I find helpful across other areas.
 
 Feel free to send me a [Hi!](mailto:contact@niravraval.com).
 
 Enjoy! 😺
+
 Nirav
