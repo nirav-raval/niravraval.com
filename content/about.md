@@ -28,7 +28,7 @@ cover:
   hidden: true
 ---
 
- {{< left-image src="/Images/About_me/Nirav_about.png" alt=" " >}}
+ {{< left-image src="/Images/About_me/Nirav_about.jpg" alt=" " >}}
 
 Hi, I’m Nirav. I’m a Developer focused on the Microsoft 365 domain, and I work at [**2ToLead**](https://www.2ToLead.com) Consulting firm located in Toronto, Canada. In addition to working on development and consultation projects, I love writing blogs and singing songs.
 
