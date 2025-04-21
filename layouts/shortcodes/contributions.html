@@ -1,0 +1,162 @@
+<style>
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* Makes column widths respect your defined sizes */
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+  margin: 40px 10px 10px 10px;
+}
+
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+       
+    }
+  
+    th {
+      font-weight: 500;
+      text-transform: capitalize;
+      letter-spacing: 0.05rem;
+      background-color: #f1f1f1;
+      color: black;
+     
+    }
+  
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+  
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+  
+    td a {
+      color: #3845a8;
+      text-decoration: none;
+    
+    }
+  
+    td a:hover {
+      text-decoration: none;
+      
+    }
+  
+    td {
+      font-size: 0.95rem;
+      color: #000;
+    }
+  
+    /* Dark mode compatibility */
+    /* Responsive table */
+    @media (max-width: 600px) {
+      table, thead, tbody, th, td, tr {
+        display: block;
+        justify-content:center;
+      }
+  
+      thead {
+        display: none;
+      }
+  
+      tr {
+        margin-bottom: 1.25rem;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+  
+      td {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid #ddd;
+      }
+  
+      td::before {
+        content: attr(data-label);
+        font-weight: 500;
+        color: black;
+
+         
+      }
+    }
+  </style>
+  <table id="contrib-table">
+   
+    <thead>
+        <tr>
+          <th style="width: 40%;">Repository Name</th>
+          <th style="width: 30%;">Issue Title</th>
+          <th style="width: 20%;">Date</th>
+          <th style="width: 10%;"></th>
+        </tr>
+      </thead>
+      
+    <tbody></tbody>
+ 
+  </table>
+  
+  <script>
+    const username = "nirav-raval";
+    const tableBody = document.querySelector("#contrib-table tbody");
+  
+    async function fetchClosedPRs(page = 1, allItems = []) {
+      const res = await fetch(`https://api.github.com/search/issues?q=author:${username}+type:pr+is:closed&per_page=100&page=${page}`);
+      const data = await res.json();
+  
+      allItems = allItems.concat(data.items);
+  
+      if (data.items.length === 100) {
+        // Continue fetching next page
+        fetchClosedPRs(page + 1, allItems);
+      } else {
+        // Final processing after all pages are fetched
+        displaySortedPRs(allItems);
+      }
+    }
+  
+    function formatDate(dateStr) {
+      const date = new Date(dateStr);
+      return date.toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: 'short',
+        year: '2-digit'
+      }).replace(/ /g, '-');
+    }
+  
+    function displaySortedPRs(items) {
+      // Sort by closed date (latest first)
+      items.sort((a, b) => new Date(b.closed_at || b.updated_at) - new Date(a.closed_at || a.updated_at));
+  
+      items.forEach(pr => {
+        const repoParts = pr.repository_url.split('/').slice(-2);
+        const repoOwner = repoParts[0];
+        const repoName = repoParts[1];
+  
+        if (repoOwner.toLowerCase() === username.toLowerCase()) return;
+  
+        const repoPath = `${repoOwner}/${repoName}`;
+        const repoUrl = `https://github.com/${repoPath}`;
+        const title = pr.title;
+        const closedDate = formatDate(pr.closed_at || pr.updated_at);
+        const link = pr.html_url;
+  
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td data-label="Repository"><a href="${repoUrl}" target="_blank">${repoPath}</a></td>
+          <td data-label="Title">${title}</td>
+          <td data-label="Closed Date">${closedDate}</td>
+          <td data-label="Link"><a href="${link}" target="_blank">View PR</a></td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+  
+    fetchClosedPRs();
+  </script>
+  
