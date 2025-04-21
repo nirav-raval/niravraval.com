@@ -123,10 +123,7 @@ menu:
     - name: Contributions
       url: contributions/
       weight: 3
-    - name: Stats
-      url: https://stats.niravraval.com/
-      weight: 4
     - name: Search
       url: /search/
-      weight: 5
+      weight: 4
 
