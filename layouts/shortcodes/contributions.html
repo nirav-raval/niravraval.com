@@ -1,162 +1,240 @@
+<div class="table-container">
+  <input type="text" id="search-input" placeholder="Search..." class="search-input" />
+  <table id="contrib-table">
+    <thead>
+      <tr>
+        <th style="width: 40%;">Repository Name</th>
+        <th style="width: 30%;">Issue Title</th>
+        <th style="width: 20%;">Date</th>
+        <th style="width: 10%;"></th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <div class="github-source-info" style="text-align: center; margin-top: 20px;">
+    (Live from <a href="https://github.com/nirav-raval" target="_blank">GitHub</a> using 
+    <a href="https://docs.github.com/en/rest/about-the-rest-api/about-the-rest-api?apiVersion=2022-11-28" target="_blank">GitHub API</a>)
+  </div>
+  <div class="pagination">
+    <button id="prev-btn" class="pagination-button">Previous</button>
+    <span id="page-info" class="page-info">Page 1</span>
+    <button id="next-btn" class="pagination-button">Next</button>
+  </div>
+</div>
 <style>
+  .table-container {
+  margin: 40px 10px 10px 10px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  background-color: var(--theme);
+  color: var(--primary);
+}
 
 table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed; /* Makes column widths respect your defined sizes */
-  background-color: #fff;
+  table-layout: fixed;
+  background-color: var(--theme);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border-radius: 2px;
   overflow: hidden;
-  margin: 40px 10px 10px 10px;
 }
 
-    th, td {
-      padding: 1rem;
-      text-align: left;
-      border-bottom: 1px solid #ddd;
-       
-    }
-  
-    th {
-      font-weight: 500;
-      text-transform: capitalize;
-      letter-spacing: 0.05rem;
-      background-color: #f1f1f1;
-      color: black;
-     
-    }
-  
-    tr:nth-child(even) {
-      background-color: #f9f9f9;
-    }
-  
-    tr:hover {
-      background-color: #f1f1f1;
-    }
-  
-    td a {
-      color: #3845a8;
-      text-decoration: none;
-    
-    }
-  
-    td a:hover {
-      text-decoration: none;
-      
-    }
-  
-    td {
-      font-size: 0.95rem;
-      color: #000;
-    }
-  
-    /* Dark mode compatibility */
-    /* Responsive table */
-    @media (max-width: 600px) {
-      table, thead, tbody, th, td, tr {
-        display: block;
-        justify-content:center;
-      }
-  
-      thead {
-        display: none;
-      }
-  
-      tr {
-        margin-bottom: 1.25rem;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        overflow: hidden;
-      }
-  
-      td {
-        display: flex;
-        justify-content: space-between;
-        padding: 0.75rem 1rem;
-        border-bottom: 1px solid #ddd;
-      }
-  
-      td::before {
-        content: attr(data-label);
-        font-weight: 500;
-        color: black;
+th, td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
 
-         
-      }
-    }
+th {
+  font-weight: 500;
+  text-transform: capitalize;
+  letter-spacing: 0.05rem;
+  background-color: var(--code-bg);
+  color: var(--primary);
+}
+
+td {
+  font-size: 0.95rem;
+  color: var(--primary);
+}
+
+td a {
+  color: #3845a8;
+  text-decoration: none;
+}
+
+td a:hover {
+  text-decoration: none;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.pagination-button {
+  padding: 10px 15px;
+  margin: 0 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--primary);
+  color: var(--theme);
+  cursor: pointer;
+}
+
+.pagination-button:hover {
+  background-color: var(--primary-hover, var(--primary));
+}
+
+.page-info {
+  margin: 0 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tr {
+    margin-bottom: 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  td {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  td::before {
+    content: attr(data-label);
+    font-weight: 500;
+    color: var(--primary);
+  }
+}
   </style>
-  <table id="contrib-table">
-   
-    <thead>
-        <tr>
-          <th style="width: 40%;">Repository Name</th>
-          <th style="width: 30%;">Issue Title</th>
-          <th style="width: 20%;">Date</th>
-          <th style="width: 10%;"></th>
-        </tr>
-      </thead>
+<script>
+  let allItems = [];
+  let currentItems = [];
+  let currentPage = 1;
+  const itemsPerPage = 6;
+
+  const username = "nirav-raval";
+  const tableBody = document.querySelector("#contrib-table tbody");
+  const searchInput = document.getElementById('search-input');
+  const prevButton = document.getElementById('prev-btn');
+  const nextButton = document.getElementById('next-btn');
+  const pageInfo = document.getElementById('page-info');
+
+  async function fetchClosedPRs(page = 1) {
+    const res = await fetch(`https://api.github.com/search/issues?q=author:${username}+type:pr+is:closed&per_page=100&page=${page}`);
+    const data = await res.json();
+    allItems = allItems.concat(data.items);
+
+    if (data.items.length === 100) {
+      fetchClosedPRs(page + 1);
+    } else {
+      allItems.sort((a, b) => {
       
-    <tbody></tbody>
- 
-  </table>
+      const dateA = a.closed_at ? Date.parse(a.closed_at) : Date.parse(a.updated_at);
+      const dateB = b.closed_at ? Date.parse(b.closed_at) : Date.parse(b.updated_at);
+      return dateB - dateA;  
+    });
   
-  <script>
-    const username = "nirav-raval";
-    const tableBody = document.querySelector("#contrib-table tbody");
-  
-    async function fetchClosedPRs(page = 1, allItems = []) {
-      const res = await fetch(`https://api.github.com/search/issues?q=author:${username}+type:pr+is:closed&per_page=100&page=${page}`);
-      const data = await res.json();
-  
-      allItems = allItems.concat(data.items);
-  
-      if (data.items.length === 100) {
-        // Continue fetching next page
-        fetchClosedPRs(page + 1, allItems);
-      } else {
-        // Final processing after all pages are fetched
-        displaySortedPRs(allItems);
-      }
+    currentItems = [...allItems];  
+    displaySortedPRs();  }
+  }
+
+  function formatDate(dateStr) {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('en-GB', {
+      day: '2-digit',
+      month: 'short',
+      year: '2-digit'
+    }).replace(/ /g, '-');
+  }
+
+  function displaySortedPRs() {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, currentItems.length);
+    const displayedItems = currentItems.slice(startIndex, endIndex);
+
+    tableBody.innerHTML = '';
+
+    displayedItems.forEach(pr => {
+      const repoParts = pr.repository_url.split('/').slice(-2);
+      const repoOwner = repoParts[0];
+      const repoName = repoParts[1];
+      if (repoOwner.toLowerCase() === username.toLowerCase()) return;
+
+      const repoPath = `${repoOwner}/${repoName}`;
+      const repoUrl = `https://github.com/${repoPath}`;
+      const title = pr.title;
+      const closedDate = formatDate(pr.closed_at || pr.updated_at);
+      const link = pr.html_url;
+
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td data-label="Repository"><a href="${repoUrl}" target="_blank">${repoPath}</a></td>
+        <td data-label="Title">${title}</td>
+        <td data-label="Closed Date">${closedDate}</td>
+        <td data-label="Link"><a href="${link}" target="_blank">View PR</a></td>
+      `;
+      tableBody.appendChild(row);
+    });
+
+    if (currentItems.length === 0) {
+  pageInfo.innerText = "No results";
+} else {
+  const totalPages = Math.ceil(currentItems.length / itemsPerPage);
+  pageInfo.innerText = `Page ${currentPage} / ${totalPages}`;
+}
+    prevButton.disabled = currentPage === 1;
+    nextButton.disabled = endIndex >= currentItems.length;
+  }
+
+  prevButton.addEventListener('click', () => {
+    if (currentPage > 1) {
+      currentPage -= 1;
+      displaySortedPRs();
     }
-  
-    function formatDate(dateStr) {
-      const date = new Date(dateStr);
-      return date.toLocaleDateString('en-GB', {
-        day: '2-digit',
-        month: 'short',
-        year: '2-digit'
-      }).replace(/ /g, '-');
+  });
+
+  nextButton.addEventListener('click', () => {
+    if (currentPage * itemsPerPage < currentItems.length) {
+      currentPage += 1;
+      displaySortedPRs();
     }
-  
-    function displaySortedPRs(items) {
-      // Sort by closed date (latest first)
-      items.sort((a, b) => new Date(b.closed_at || b.updated_at) - new Date(a.closed_at || a.updated_at));
-  
-      items.forEach(pr => {
-        const repoParts = pr.repository_url.split('/').slice(-2);
-        const repoOwner = repoParts[0];
-        const repoName = repoParts[1];
-  
-        if (repoOwner.toLowerCase() === username.toLowerCase()) return;
-  
-        const repoPath = `${repoOwner}/${repoName}`;
-        const repoUrl = `https://github.com/${repoPath}`;
-        const title = pr.title;
-        const closedDate = formatDate(pr.closed_at || pr.updated_at);
-        const link = pr.html_url;
-  
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td data-label="Repository"><a href="${repoUrl}" target="_blank">${repoPath}</a></td>
-          <td data-label="Title">${title}</td>
-          <td data-label="Closed Date">${closedDate}</td>
-          <td data-label="Link"><a href="${link}" target="_blank">View PR</a></td>
-        `;
-        tableBody.appendChild(row);
-      });
-    }
-  
-    fetchClosedPRs();
-  </script>
-  
+  });
+
+  searchInput.addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase();
+    currentItems = allItems.filter(pr => 
+      pr.title.toLowerCase().includes(searchTerm) || 
+      pr.repository_url.toLowerCase().includes(searchTerm)
+    );
+    currentPage = 1;
+    displaySortedPRs();
+  });
+
+  fetchClosedPRs();
+</script>
