@@ -37,13 +37,15 @@ I’ve been working with Microsoft technologies for around 4 years. I started my
 I hold the following certifications:
 
 - [Microsoft Certified: Power Platform App Maker Associate](https://learn.microsoft.com/en-us/users/nrvrvl/credentials/66B6FA2C51333F2E)
-- [Microsoft 365 Certified: Teams Administrator Associate](https://learn.microsoft.com/api/credentials/share/en-us/nrvrvl/BDC078CFACACCD79?sharingId) 
+- [Microsoft Certified : Create and Manage Canvas Apps with Power Apps](https://learn.microsoft.com/api/credentials/share/en-us/nrvrvl/E489BAC41388B8C?sharingId)
+- [Microsoft Certified : Implement AI models with Microsoft Power Platform AI Builder](https://learn.microsoft.com/api/credentials/share/en-us/nrvrvl/5ab8d05d4018b40d?sharingId)
+- [Microsoft 365 Certified: Teams Administrator Associate](https://learn.microsoft.com/api/credentials/share/en-us/nrvrvl/BDC078CFACACCD79?sharingId)
 - [Microsoft 365 Certified: Fundamentals](https://learn.microsoft.com/api/credentials/share/en-us/nrvrvl/241C9876DD963464)
 - [Microsoft Certified: Azure Fundamentals](https://www.credly.com/badges/173b861e-c889-40ae-a3ff-eae59701c303?source=linked_in_profile)
 - [Microsoft Certified: Azure AI Fundamentals](https://learn.microsoft.com/api/credentials/share/en-ca/nrvrvl/B023BD34DDE9A11F?sharingId=F70DBDD87F942163)
 - [Microsoft Certified : Power Platform Fundamentals](https://www.youracclaim.com/badges/79b37252-59b1-4a1d-8854-3d19dce16362?source=linked_in_profile)
-- [Microsoft Certified : Create and Manage Canvas Apps with Power Apps](https://learn.microsoft.com/api/credentials/share/en-us/nrvrvl/E489BAC41388B8C?sharingId)
 - [Microsoft Certified : Create and manage automated processes by using Power Automate](https://learn.microsoft.com/api/credentials/share/en-us/nrvrvl/F28485F2A0F4BF76?sharingId)
+
 
 {{< image src="/Images/About_me/Badge_Associate.png" alt="Associate Badge" >}}
 {{< image src="/Images/About_me/Badge_Fundamental.png" alt="Associate Badge" >}}
