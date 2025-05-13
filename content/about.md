@@ -30,9 +30,9 @@ cover:
 
  {{< left-image src="/Images/About_me/Nirav_about.jpg" alt=" " >}}
 
-Hi, I’m Nirav. I’m a Developer focused on the Microsoft 365 domain, and I work at [**2ToLead**](https://www.2ToLead.com) Consulting firm located in Toronto, Canada. In addition to working on development and consultation projects, I love writing blogs and singing songs.
+Hi, I’m Nirav. I’m a Developer focused on the Microsoft 365 domain, and I work at [**2ToLead**](https://www.2ToLead.com) Consulting firm located in Toronto, Canada. In addition to working on development and consultation projects, I’m an active contributor to the [Microsoft 365 and Power Platform community](https://pnp.github.io/).
 
-I’ve been working with Microsoft technologies for around 4 years. I started my career as a Developer. I’ve started adopting multiple technologies throughout my career. My areas of expertise include **SharePoint Framework (SPFx)**, **React**, **PowerShell**, **Azure DevOps**, **PowerApps** and **Robotic Process Automation** with Power Platform.
+I’ve been working with Microsoft technologies for around 4 years. I’ve started adopting multiple technologies throughout my career. My areas of expertise include **SharePoint Framework (SPFx)**, **React**, **PowerShell**, **Azure DevOps**, **PowerApps** and **Robotic Process Automation** with Power Platform.
 
 I hold the following certifications:
 
@@ -46,10 +46,12 @@ I hold the following certifications:
 - [Microsoft Certified : Power Platform Fundamentals](https://www.youracclaim.com/badges/79b37252-59b1-4a1d-8854-3d19dce16362?source=linked_in_profile)
 - [Microsoft Certified : Create and manage automated processes by using Power Automate](https://learn.microsoft.com/api/credentials/share/en-us/nrvrvl/F28485F2A0F4BF76?sharingId)
 
-
+{{< image src="/Images/About_me/Badge_PnPContributor2025.png" alt="Badge_PnPContributor2025" >}}
 {{< image src="/Images/About_me/Badge_Associate.png" alt="Associate Badge" >}}
-{{< image src="/Images/About_me/Badge_Fundamental.png" alt="Associate Badge" >}}
-{{< image src="/Images/About_me/Badge_AppliedSkills.png" alt="Associate Badge" >}}
+{{< image src="/Images/About_me/Badge_Fundamental.png" alt="Badge_Fundamental" >}}
+{{< image src="/Images/About_me/Badge_AppliedSkills.png" alt="Badge_AppliedSkills" >}}
+
+
  
 For a long time, I’ve had the thought of creating a blog to share knowledge and help others. I’m building this space to discuss the problems I solve. While it’s primarily focused on the Microsoft ecosystem, I’ll also share tips and tricks that I find helpful across other areas.
 
