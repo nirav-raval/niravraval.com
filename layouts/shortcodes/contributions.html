@@ -145,24 +145,30 @@ td a:hover {
   const nextButton = document.getElementById('next-btn');
   const pageInfo = document.getElementById('page-info');
 
-  async function fetchClosedPRs(page = 1) {
-    const res = await fetch(`https://api.github.com/search/issues?q=author:${username}+type:pr+is:closed&per_page=100&page=${page}`);
-    const data = await res.json();
-    allItems = allItems.concat(data.items);
+const ignoreList = [496];  
 
-    if (data.items.length === 100) {
-      fetchClosedPRs(page + 1);
-    } else {
-      allItems.sort((a, b) => {
-      
+async function fetchClosedPRs(page = 1) {
+  const res = await fetch(`https://api.github.com/search/issues?q=author:${username}+type:pr+is:closed&per_page=100&page=${page}`);
+  const data = await res.json();
+  
+  // Filter out ignored PRs before adding to allItems
+  const filteredItems = data.items.filter(pr => !ignoreList.includes(pr.number));
+  
+  allItems = allItems.concat(filteredItems);
+
+  if (data.items.length === 100) {
+    await fetchClosedPRs(page + 1);  
+  } else {
+    allItems.sort((a, b) => {
       const dateA = a.closed_at ? Date.parse(a.closed_at) : Date.parse(a.updated_at);
       const dateB = b.closed_at ? Date.parse(b.closed_at) : Date.parse(b.updated_at);
       return dateB - dateA;  
     });
-  
+
     currentItems = [...allItems];  
-    displaySortedPRs();  }
+    displaySortedPRs();
   }
+}
 
   function formatDate(dateStr) {
     const date = new Date(dateStr);
