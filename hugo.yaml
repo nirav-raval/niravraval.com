@@ -64,15 +64,13 @@ params:
     Title: "Hi, I'm Nirav 👋"
     Content:  >
 
-        👨‍💻 Developer at [2ToLead.](https://2tolead.com)  
+        👨‍💻 Developer at [2ToLead.](https://2tolead.com)
+        
+        📌 Helping teams do more with Microsoft 365
 
-        🔧 ReactJS | SPFx | Azure DevOps | PowerApps | Power Platform | PowerBI 
+        📝 Writing about Microsoft 365 Copilot, Power Platform, and more.
         
-        
-        📌 Exploring New technologies, and building Smarter solutions
-        
-        
-        [More...](https://niravraval.com/about)
+        [Read my story...](https://niravraval.com/about)
       
   cover:
     linkFullImages: false
