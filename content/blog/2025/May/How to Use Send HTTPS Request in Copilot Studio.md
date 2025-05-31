@@ -32,7 +32,7 @@ cover:
   hidden: false
 ---
 
-Microsoft [Copilot Studio](https://learn.microsoft.com/en-us/microsoft-copilot-studio/fundamentals-what-is-copilot-studio) is getting better every day! One of the coolest features is the ability to build your own custom agents with knowledge bases, topics, actions, and channels.
+Microsoft [Copilot Studio](https://learn.microsoft.com/en-us/microsoft-copilot-studio/fundamentals-what-is-copilot-studio) is getting better every day! One of the coolest features is the ability to build your own custom agents with knowledge bases, topics, tools (previously Actions), and channels.
 
 In this blog, I’ll show you how to use the [**Send HTTPS Request**](https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-http-node) feature effectively. We’ll create a simple agent that fetches random quotes from the [_Breaking Bad_ API](https://breakingbadquotes.xyz/) (I just love using this API to show examples). The API response will return a quote along with the author’s name (character name) from the series. 
 
