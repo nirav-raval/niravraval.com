@@ -39,7 +39,7 @@
   :root {
     --primary: #222831;
     --primary-hover: #393e46;
-    --theme: #eeeeee;
+    --theme: #f5f5f5;
     --border: #cccccc;
     --code-bg: #d1d9e6;
     --accent: #222831;
@@ -373,7 +373,9 @@
       const repoPath = `${repoOwner}/${repoName}`;
       const repoUrl = `https://github.com/${repoPath}`;
       const title = pr.title;
-      const closedDate = formatDate(pr.closed_at || pr.updated_at);
+      const dateToShow = pr.closed_at ? pr.closed_at : pr.created_at;
+      const closedDate = formatDate(dateToShow);
+
       const link = pr.html_url;
 
       const row = document.createElement("tr");
