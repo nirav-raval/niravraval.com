@@ -1,6 +1,14 @@
 <div class="table-container">
-  <input type="text" id="search-input" placeholder="Search..." class="search-input" />
-  <table id="contrib-table">
+  <div class="search-filter-wrapper">
+    <input type="text" id="search-input" placeholder="Search..." class="search-input" />
+
+    <div class="toggle-group" role="radiogroup" aria-label="Filter Pull Requests">
+      <button type="button" id="closed-filter" class="toggle-btn active" aria-pressed="true">Closed</button>
+      <button type="button" id="open-filter" class="toggle-btn" aria-pressed="false">Open</button>
+    </div>
+  </div>
+
+  <table id="contrib-table" aria-live="polite" aria-relevant="all" aria-label="GitHub Pull Requests">
     <thead>
       <tr>
         <th style="width: 40%;">Repository Name</th>
@@ -12,128 +20,251 @@
     <tbody></tbody>
   </table>
 
+  <div id="loading-indicator" class="loading-indicator" aria-live="assertive" aria-atomic="true" hidden>
+    Loading PRs...
+  </div>
+
   <div class="github-source-info" style="text-align: center; margin-top: 20px;">
-    (Live from <a href="https://github.com/nirav-raval" target="_blank">GitHub</a> using 
-    <a href="https://docs.github.com/en/rest/about-the-rest-api/about-the-rest-api?apiVersion=2022-11-28" target="_blank">GitHub API</a>)
+    (Live from <a href="https://github.com/nirav-raval" target="_blank" rel="noopener noreferrer">GitHub</a> using 
+    <a href="https://docs.github.com/en/rest/about-the-rest-api/about-the-rest-api?apiVersion=2022-11-28" target="_blank" rel="noopener noreferrer">GitHub API</a>)
   </div>
   <div class="pagination">
-    <button id="prev-btn" class="pagination-button">Previous</button>
-    <span id="page-info" class="page-info">Page 1</span>
-    <button id="next-btn" class="pagination-button">Next</button>
+    <button id="prev-btn" class="pagination-button" aria-label="Previous page">Previous</button>
+    <span id="page-info" class="page-info" aria-live="polite" aria-atomic="true">Page 1</span>
+    <button id="next-btn" class="pagination-button" aria-label="Next page">Next</button>
   </div>
 </div>
+
 <style>
+  :root {
+    --primary: #222831;
+    --primary-hover: #393e46;
+    --theme: #eeeeee;
+    --border: #cccccc;
+    --code-bg: #d1d9e6;
+    --accent: #222831;
+    --accent-light: #b0f9f64c;
+  }
+
   .table-container {
-  margin: 40px 10px 10px 10px;
-}
-
-.search-input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid var(--border);
-  border-radius: 5px;
-  margin-bottom: 20px;
-  font-size: 1rem;
-  background-color: var(--theme);
-  color: var(--primary);
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed;
-  background-color: var(--theme);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-th, td {
-  padding: 1rem;
-  text-align: left;
-  border-bottom: 1px solid var(--border);
-}
-
-th {
-  font-weight: 500;
-  text-transform: capitalize;
-  letter-spacing: 0.05rem;
-  background-color: var(--code-bg);
-  color: var(--primary);
-}
-
-td {
-  font-size: 0.95rem;
-  color: var(--primary);
-}
-
-td a {
-  color: #3845a8;
-  text-decoration: none;
-}
-
-td a:hover {
-  text-decoration: none;
-}
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 15px;
-}
-
-.pagination-button {
-  padding: 10px 15px;
-  margin: 0 5px;
-  border: none;
-  border-radius: 5px;
-  background-color: var(--primary);
-  color: var(--theme);
-  cursor: pointer;
-}
-
-.pagination-button:hover {
-  background-color: var(--primary-hover, var(--primary));
-}
-
-.page-info {
-  margin: 0 10px;
-}
-
-/* Responsive Design */
-@media (max-width: 600px) {
-  table, thead, tbody, th, td, tr {
-    display: block;
+    margin: 40px 10px 10px 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--primary);
   }
 
-  thead {
-    display: none;
-  }
-
-  tr {
-    margin-bottom: 1.25rem;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
-  }
-
-  td {
+  /* Wrapper for search + toggles */
+  .search-filter-wrapper {
     display: flex;
-    justify-content: space-between;
-    padding: 0.75rem 1rem;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .search-input {
+    flex-grow: 1;
+    min-width: 200px;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    font-size: 1rem;
+    background-color: var(--theme);
+    color: var(--primary);
+    transition: border-color 0.3s ease;
+  }
+
+  .search-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 6px var(--accent-light);
+  }
+
+  .toggle-group {
+    display: flex;
+    border: 1.5px solid var(--border);
+    border-radius: 25px;
+    background-color: var(--theme);
+    overflow: hidden;
+    user-select: none;
+  }
+
+  .toggle-btn {
+    cursor: pointer;
+    padding: 8px 22px;
+    border: none;
+    background-color: transparent;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 0;
+    flex: 1 1 auto;
+  }
+
+  .toggle-btn:not(:last-child) {
+    border-right: 1.5px solid var(--border);
+  }
+
+  .toggle-btn:hover,
+  .toggle-btn:focus-visible {
+    background-color: var(--accent-light);
+    color: var(--accent);
+    outline: none;
+  }
+
+  .toggle-btn.active {
+    background-color: var(--accent);
+    color: white;
+    cursor: default;
+  }
+
+  /* Table styling */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    background-color: var(--theme);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: opacity 0.3s ease;
+  }
+
+  th, td {
+    padding: 1rem;
+    text-align: left;
     border-bottom: 1px solid var(--border);
   }
 
-  td::before {
-    content: attr(data-label);
-    font-weight: 500;
+  th {
+    font-weight: 600;
+    text-transform: capitalize;
+    letter-spacing: 0.06rem;
+    background-color: var(--code-bg);
     color: var(--primary);
   }
-}
-  </style>
+
+  td {
+    font-size: 0.95rem;
+    color: var(--primary);
+    word-break: break-word;
+  }
+
+  td a {
+    text-decoration: none;
+  }
+
+  td a:hover,
+  td a:focus-visible {
+    text-decoration: none;
+    outline: none;
+  }
+
+  /* Loading indicator */
+  .loading-indicator {
+    text-align: center;
+    font-style: italic;
+    color: var(--accent);
+    margin-top: 10px;
+    font-weight: 600;
+  }
+
+  /* Pagination */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    gap: 10px;
+  }
+
+  .pagination-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--primary);
+    color: var(--theme);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+  }
+
+  .pagination-button:hover:not(:disabled),
+  .pagination-button:focus-visible:not(:disabled) {
+    background-color: var(--primary-hover);
+    outline: none;
+  }
+
+  .pagination-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .page-info {
+    font-weight: 600;
+    font-size: 1rem;
+    min-width: 100px;
+    text-align: center;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 600px) {
+    .search-filter-wrapper {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .toggle-group {
+      width: 100%;
+      border-radius: 6px;
+    }
+
+    .toggle-btn {
+      font-size: 1rem;
+      padding: 12px;
+    }
+
+    table, thead, tbody, th, td, tr {
+      display: block;
+    }
+
+    thead {
+      display: none;
+    }
+
+    tr {
+      margin-bottom: 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    td {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    td::before {
+      content: attr(data-label);
+      font-weight: 600;
+      color: var(--primary);
+      flex-basis: 40%;
+    }
+  }
+
+  /* Empty state styling */
+  #page-info:empty {
+    font-style: italic;
+    color: var(--border);
+  }
+</style>
+
 <script>
-  let allItems = [];
+  let allItems = [];       // Closed PRs
+  let openItems = [];      // Open PRs
   let currentItems = [];
   let currentPage = 1;
   const itemsPerPage = 5;
@@ -145,30 +276,77 @@ td a:hover {
   const nextButton = document.getElementById('next-btn');
   const pageInfo = document.getElementById('page-info');
 
-const ignoreList = [496,3];  
+  const closedFilterBtn = document.getElementById('closed-filter');
+  const openFilterBtn = document.getElementById('open-filter');
+  const loadingIndicator = document.getElementById('loading-indicator');
 
-async function fetchClosedPRs(page = 1) {
-  const res = await fetch(`https://api.github.com/search/issues?q=author:${username}+type:pr+is:closed&per_page=100&page=${page}`);
-  const data = await res.json();
-  
-  // Filter out ignored PRs before adding to allItems
-  const filteredItems = data.items.filter(pr => !ignoreList.includes(pr.number));
-  
-  allItems = allItems.concat(filteredItems);
+  const ignoreList = [496,3];  
 
-  if (data.items.length === 100) {
-    await fetchClosedPRs(page + 1);  
-  } else {
-    allItems.sort((a, b) => {
+  function setLoading(isLoading) {
+    loadingIndicator.hidden = !isLoading;
+    
+    document.getElementById('contrib-table').style.opacity = isLoading ? '0.5' : '1';
+  }
+
+  async function fetchClosedPRs(page = 1) {
+    setLoading(true);
+    const res = await fetch(`https://api.github.com/search/issues?q=author:${username}+type:pr+is:closed&per_page=100&page=${page}`);
+    const data = await res.json();
+    
+    const filteredItems = data.items.filter(pr => !ignoreList.includes(pr.number));
+    allItems = allItems.concat(filteredItems);
+
+    if (data.items.length === 100) {
+      await fetchClosedPRs(page + 1);  
+    } else {
+      setLoading(false);
+      updateCombinedItems();
+    }
+  }
+
+  async function fetchOpenPRs(page = 1) {
+    setLoading(true);
+    const res = await fetch(`https://api.github.com/search/issues?q=author:${username}+type:pr+is:open&per_page=100&page=${page}`);
+    const data = await res.json();
+
+    const filteredItems = data.items.filter(pr => !ignoreList.includes(pr.number));
+    openItems = openItems.concat(filteredItems);
+
+    if (data.items.length === 100) {
+      await fetchOpenPRs(page + 1);
+    } else {
+      setLoading(false);
+      updateCombinedItems();
+    }
+  }
+
+  function updateCombinedItems() {
+    currentItems = [];
+
+    if (closedFilterBtn.classList.contains('active')) {
+      currentItems = currentItems.concat(allItems);
+    }
+    if (openFilterBtn.classList.contains('active')) {
+      currentItems = currentItems.concat(openItems);
+    }
+
+    const searchTerm = searchInput.value.toLowerCase();
+    if (searchTerm) {
+      currentItems = currentItems.filter(pr => 
+        pr.title.toLowerCase().includes(searchTerm) || 
+        pr.repository_url.toLowerCase().includes(searchTerm)
+      );
+    }
+
+    currentItems.sort((a, b) => {
       const dateA = a.closed_at ? Date.parse(a.closed_at) : Date.parse(a.updated_at);
       const dateB = b.closed_at ? Date.parse(b.closed_at) : Date.parse(b.updated_at);
-      return dateB - dateA;  
+      return dateB - dateA;
     });
 
-    currentItems = [...allItems];  
+    currentPage = 1;
     displaySortedPRs();
   }
-}
 
   function formatDate(dateStr) {
     const date = new Date(dateStr);
@@ -200,23 +378,55 @@ async function fetchClosedPRs(page = 1) {
 
       const row = document.createElement("tr");
       row.innerHTML = `
-        <td data-label="Repository"><a href="${repoUrl}" target="_blank">${repoPath}</a></td>
+        <td data-label="Repository"><a href="${repoUrl}" target="_blank" rel="noopener noreferrer">${repoPath}</a></td>
         <td data-label="Title">${title}</td>
         <td data-label="Closed Date">${closedDate}</td>
-        <td data-label="Link"><a href="${link}" target="_blank">View PR</a></td>
+        <td data-label="Link"><a href="${link}" target="_blank" rel="noopener noreferrer">View PR</a></td>
       `;
       tableBody.appendChild(row);
     });
 
     if (currentItems.length === 0) {
-  pageInfo.innerText = "No results";
-} else {
-  const totalPages = Math.ceil(currentItems.length / itemsPerPage);
-  pageInfo.innerText = `Page ${currentPage} / ${totalPages}`;
-}
+      pageInfo.innerText = "No results";
+    } else {
+      const totalPages = Math.ceil(currentItems.length / itemsPerPage);
+      pageInfo.innerText = `Page ${currentPage} / ${totalPages}`;
+    }
     prevButton.disabled = currentPage === 1;
     nextButton.disabled = endIndex >= currentItems.length;
   }
+
+  function setActiveFilter(selectedBtn) {
+    // Remove active from both first
+    closedFilterBtn.classList.remove('active');
+    closedFilterBtn.setAttribute('aria-pressed', 'false');
+    openFilterBtn.classList.remove('active');
+    openFilterBtn.setAttribute('aria-pressed', 'false');
+
+    // Activate selected
+    selectedBtn.classList.add('active');
+    selectedBtn.setAttribute('aria-pressed', 'true');
+  }
+
+  closedFilterBtn.addEventListener('click', () => {
+    if (closedFilterBtn.classList.contains('active')) return; // prevent re-click
+    setActiveFilter(closedFilterBtn);
+    updateCombinedItems();
+  });
+
+  openFilterBtn.addEventListener('click', () => {
+    if (openFilterBtn.classList.contains('active')) return; // prevent re-click
+    setActiveFilter(openFilterBtn);
+    if (openItems.length === 0) {
+      fetchOpenPRs();
+    } else {
+      updateCombinedItems();
+    }
+  });
+
+  searchInput.addEventListener('input', () => {
+    updateCombinedItems();
+  });
 
   prevButton.addEventListener('click', () => {
     if (currentPage > 1) {
@@ -232,15 +442,6 @@ async function fetchClosedPRs(page = 1) {
     }
   });
 
-  searchInput.addEventListener('input', function() {
-    const searchTerm = this.value.toLowerCase();
-    currentItems = allItems.filter(pr => 
-      pr.title.toLowerCase().includes(searchTerm) || 
-      pr.repository_url.toLowerCase().includes(searchTerm)
-    );
-    currentPage = 1;
-    displaySortedPRs();
-  });
-
+  // Initial load - fetch closed PRs only
   fetchClosedPRs();
 </script>
