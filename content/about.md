@@ -47,13 +47,13 @@ I hold the following certifications:
 - [Microsoft Certified : Create and manage automated processes by using Power Automate](https://learn.microsoft.com/api/credentials/share/en-us/nrvrvl/F28485F2A0F4BF76?sharingId)
 
 {{< image src="/Images/About_me/Badge_M365Contributor2025.png" alt="Badge_M365Contributor2025" >}}
+{{< image src="/Images/About_me/Badge_Associate.png" alt="Associate Badge" >}}
+{{< image src="/Images/About_me/Badge_Fundamental.png" alt="Badge_Fundamental" >}}
+{{< image src="/Images/About_me/Badge_spfxToolkit.png" alt="Badge_spfxToolkit" >}}
+
 {{< image src="/Images/About_me/Badge_CodeCrusader.png" alt="Badge_CodeCrusader.png" >}}
 {{< image src="/Images/About_me/Badge_RiseofContributor.png" alt="Badge_RiseofContributor" >}}
 {{< image src="/Images/About_me/Badge_PnPContributor2025.png" alt="Badge_PnPContributor2025" >}}
-
-{{< image src="/Images/About_me/Badge_spfxToolkit.png" alt="Badge_spfxToolkit" >}}
-{{< image src="/Images/About_me/Badge_Associate.png" alt="Associate Badge" >}}
-{{< image src="/Images/About_me/Badge_Fundamental.png" alt="Badge_Fundamental" >}}
 {{< image src="/Images/About_me/Badge_applied-skills.png" alt="Badge_applied-skills" >}}
 
 
