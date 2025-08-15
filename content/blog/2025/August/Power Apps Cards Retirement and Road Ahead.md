@@ -25,7 +25,7 @@ ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
 cover:
-  image: Images/blog_images/2025/August/test.png
+  image: Images/blog_images/2025/August/AC_Cover.png
   alt: Image for PowerApps Card Deprecation
   relative: true
   caption: 
