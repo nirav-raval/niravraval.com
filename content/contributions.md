@@ -28,7 +28,4 @@ cover:
   hidden: true
 ---
 
-
-> This page showcases my contributions to various repositories on GitHub. Below is a list of my closed pull requests, including bug fixes, feature enhancements, and documentation improvements across multiple projects .
-
 {{< contributions >}}
