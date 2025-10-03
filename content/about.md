@@ -30,7 +30,7 @@ cover:
 
  {{< left-image src="/Images/About_me/Nirav_about.jpg" alt=" " >}}
 
-Hi, I’m Nirav. I’m a Developer focused on the Microsoft 365 domain, and I work at [**2ToLead**](https://www.2ToLead.com) Consulting firm located in Toronto, Canada. In addition to working on development and consultation projects, I’m an active contributor to the [Microsoft 365 and Power Platform community](https://pnp.github.io/).
+Hi, I’m Nirav. I’m a Developer focused on the Microsoft 365 domain, and I work at [**Creospark**](https://www.creospark.com) Consulting firm located in Toronto, Canada. In addition to working on development and consultation projects, I’m an active contributor to the [Microsoft 365 and Power Platform community](https://pnp.github.io/).
 
 I’ve been working with Microsoft technologies for around 4 years. I’ve started adopting multiple technologies throughout my career. My areas of expertise include **SharePoint Framework (SPFx)**, **React**, **PowerShell**, **Azure DevOps**, **PowerApps** and **Robotic Process Automation** with Power Platform.
 
