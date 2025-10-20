@@ -1,37 +1,89 @@
 <div class="table-container">
   <div class="search-filter-wrapper">
-    <input type="text" id="search-input" placeholder="Search..." class="search-input" />
+    <input
+      type="text"
+      id="search-input"
+      placeholder="Search..."
+      class="search-input"
+    />
 
-    <div class="toggle-group" role="radiogroup" aria-label="Filter Pull Requests">
-      <button type="button" id="closed-filter" class="toggle-btn active" aria-pressed="true">Closed</button>
-      <button type="button" id="open-filter" class="toggle-btn" aria-pressed="false">Open</button>
+    <div
+      class="toggle-group"
+      role="radiogroup"
+      aria-label="Filter Pull Requests"
+    >
+      <button
+        type="button"
+        id="closed-filter"
+        class="toggle-btn active"
+        aria-pressed="true"
+      >
+        Closed
+      </button>
+      <button
+        type="button"
+        id="open-filter"
+        class="toggle-btn"
+        aria-pressed="false"
+      >
+        Open
+      </button>
     </div>
   </div>
 
-  <table id="contrib-table" aria-live="polite" aria-relevant="all" aria-label="GitHub Pull Requests">
+  <table
+    id="contrib-table"
+    aria-live="polite"
+    aria-relevant="all"
+    aria-label="GitHub Pull Requests"
+  >
     <thead>
       <tr>
-        <th style="width: 40%;">Repository Name</th>
-        <th style="width: 30%;">Issue Title</th>
-        <th style="width: 20%;">Date</th>
-        <th style="width: 10%;"></th>
+        <th style="width: 40%">Repository Name</th>
+        <th style="width: 30%">Issue Title</th>
+        <th style="width: 20%">Date</th>
+        <th style="width: 10%"></th>
       </tr>
     </thead>
     <tbody></tbody>
   </table>
 
-  <div id="loading-indicator" class="loading-indicator" aria-live="assertive" aria-atomic="true" hidden>
+  <div
+    id="loading-indicator"
+    class="loading-indicator"
+    aria-live="assertive"
+    aria-atomic="true"
+    hidden
+  >
     Loading PRs...
   </div>
 
-  <div class="github-source-info" style="text-align: center; margin-top: 20px;">
-    (Live from <a href="https://github.com/nirav-raval" target="_blank" rel="noopener noreferrer">GitHub</a> using 
-    <a href="https://docs.github.com/en/rest/about-the-rest-api/about-the-rest-api?apiVersion=2022-11-28" target="_blank" rel="noopener noreferrer">GitHub API</a>)
+  <div class="github-source-info" style="text-align: center; margin-top: 20px">
+    (Live from
+    <a
+      href="https://github.com/nirav-raval"
+      target="_blank"
+      rel="noopener noreferrer"
+      >GitHub</a
+    >
+    using
+    <a
+      href="https://docs.github.com/en/rest/about-the-rest-api/about-the-rest-api?apiVersion=2022-11-28"
+      target="_blank"
+      rel="noopener noreferrer"
+      >GitHub API</a
+    >)
   </div>
   <div class="pagination">
-    <button id="prev-btn" class="pagination-button" aria-label="Previous page">Previous</button>
-    <span id="page-info" class="page-info" aria-live="polite" aria-atomic="true">Page 1</span>
-    <button id="next-btn" class="pagination-button" aria-label="Next page">Next</button>
+    <button id="prev-btn" class="pagination-button" aria-label="Previous page">
+      Previous
+    </button>
+    <span id="page-info" class="page-info" aria-live="polite" aria-atomic="true"
+      >Page 1</span
+    >
+    <button id="next-btn" class="pagination-button" aria-label="Next page">
+      Next
+    </button>
   </div>
 </div>
 
@@ -48,7 +100,7 @@
 
   .table-container {
     margin: 40px 10px 10px 10px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     color: var(--primary);
   }
 
@@ -130,7 +182,8 @@
     transition: opacity 0.3s ease;
   }
 
-  th, td {
+  th,
+  td {
     padding: 1rem;
     text-align: left;
     border-bottom: 1px solid var(--border);
@@ -225,7 +278,12 @@
       padding: 12px;
     }
 
-    table, thead, tbody, th, td, tr {
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
       display: block;
     }
 
@@ -263,41 +321,47 @@
 </style>
 
 <script>
-  let allItems = [];       // Closed PRs
-  let openItems = [];      // Open PRs
+  let allItems = []; // Closed PRs
+  let openItems = []; // Open PRs
   let currentItems = [];
   let currentPage = 1;
   const itemsPerPage = 5;
 
   const username = "nirav-raval";
   const tableBody = document.querySelector("#contrib-table tbody");
-  const searchInput = document.getElementById('search-input');
-  const prevButton = document.getElementById('prev-btn');
-  const nextButton = document.getElementById('next-btn');
-  const pageInfo = document.getElementById('page-info');
+  const searchInput = document.getElementById("search-input");
+  const prevButton = document.getElementById("prev-btn");
+  const nextButton = document.getElementById("next-btn");
+  const pageInfo = document.getElementById("page-info");
 
-  const closedFilterBtn = document.getElementById('closed-filter');
-  const openFilterBtn = document.getElementById('open-filter');
-  const loadingIndicator = document.getElementById('loading-indicator');
+  const closedFilterBtn = document.getElementById("closed-filter");
+  const openFilterBtn = document.getElementById("open-filter");
+  const loadingIndicator = document.getElementById("loading-indicator");
 
-  const ignoreList = [496,3,601,598,597];  
+  const ignoreList = [496, 3, 601, 598, 597, 602, 599, 7018];
 
   function setLoading(isLoading) {
     loadingIndicator.hidden = !isLoading;
-    
-    document.getElementById('contrib-table').style.opacity = isLoading ? '0.5' : '1';
+
+    document.getElementById("contrib-table").style.opacity = isLoading
+      ? "0.5"
+      : "1";
   }
 
   async function fetchClosedPRs(page = 1) {
     setLoading(true);
-    const res = await fetch(`https://api.github.com/search/issues?q=author:${username}+type:pr+is:closed&per_page=100&page=${page}`);
+    const res = await fetch(
+      `https://api.github.com/search/issues?q=author:${username}+type:pr+is:closed&per_page=100&page=${page}`
+    );
     const data = await res.json();
-    
-    const filteredItems = data.items.filter(pr => !ignoreList.includes(pr.number));
+
+    const filteredItems = data.items.filter(
+      (pr) => !ignoreList.includes(pr.number)
+    );
     allItems = allItems.concat(filteredItems);
 
     if (data.items.length === 100) {
-      await fetchClosedPRs(page + 1);  
+      await fetchClosedPRs(page + 1);
     } else {
       setLoading(false);
       updateCombinedItems();
@@ -306,10 +370,14 @@
 
   async function fetchOpenPRs(page = 1) {
     setLoading(true);
-    const res = await fetch(`https://api.github.com/search/issues?q=author:${username}+type:pr+is:open&per_page=100&page=${page}`);
+    const res = await fetch(
+      `https://api.github.com/search/issues?q=author:${username}+type:pr+is:open&per_page=100&page=${page}`
+    );
     const data = await res.json();
 
-    const filteredItems = data.items.filter(pr => !ignoreList.includes(pr.number));
+    const filteredItems = data.items.filter(
+      (pr) => !ignoreList.includes(pr.number)
+    );
     openItems = openItems.concat(filteredItems);
 
     if (data.items.length === 100) {
@@ -323,24 +391,29 @@
   function updateCombinedItems() {
     currentItems = [];
 
-    if (closedFilterBtn.classList.contains('active')) {
+    if (closedFilterBtn.classList.contains("active")) {
       currentItems = currentItems.concat(allItems);
     }
-    if (openFilterBtn.classList.contains('active')) {
+    if (openFilterBtn.classList.contains("active")) {
       currentItems = currentItems.concat(openItems);
     }
 
     const searchTerm = searchInput.value.toLowerCase();
     if (searchTerm) {
-      currentItems = currentItems.filter(pr => 
-        pr.title.toLowerCase().includes(searchTerm) || 
-        pr.repository_url.toLowerCase().includes(searchTerm)
+      currentItems = currentItems.filter(
+        (pr) =>
+          pr.title.toLowerCase().includes(searchTerm) ||
+          pr.repository_url.toLowerCase().includes(searchTerm)
       );
     }
 
     currentItems.sort((a, b) => {
-      const dateA = a.closed_at ? Date.parse(a.closed_at) : Date.parse(a.updated_at);
-      const dateB = b.closed_at ? Date.parse(b.closed_at) : Date.parse(b.updated_at);
+      const dateA = a.closed_at
+        ? Date.parse(a.closed_at)
+        : Date.parse(a.updated_at);
+      const dateB = b.closed_at
+        ? Date.parse(b.closed_at)
+        : Date.parse(b.updated_at);
       return dateB - dateA;
     });
 
@@ -350,11 +423,13 @@
 
   function formatDate(dateStr) {
     const date = new Date(dateStr);
-    return date.toLocaleDateString('en-GB', {
-      day: '2-digit',
-      month: 'short',
-      year: '2-digit'
-    }).replace(/ /g, '-');
+    return date
+      .toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "2-digit",
+      })
+      .replace(/ /g, "-");
   }
 
   function displaySortedPRs() {
@@ -362,10 +437,10 @@
     const endIndex = Math.min(startIndex + itemsPerPage, currentItems.length);
     const displayedItems = currentItems.slice(startIndex, endIndex);
 
-    tableBody.innerHTML = '';
+    tableBody.innerHTML = "";
 
-    displayedItems.forEach(pr => {
-      const repoParts = pr.repository_url.split('/').slice(-2);
+    displayedItems.forEach((pr) => {
+      const repoParts = pr.repository_url.split("/").slice(-2);
       const repoOwner = repoParts[0];
       const repoName = repoParts[1];
       if (repoOwner.toLowerCase() === username.toLowerCase()) return;
@@ -400,24 +475,24 @@
 
   function setActiveFilter(selectedBtn) {
     // Remove active from both first
-    closedFilterBtn.classList.remove('active');
-    closedFilterBtn.setAttribute('aria-pressed', 'false');
-    openFilterBtn.classList.remove('active');
-    openFilterBtn.setAttribute('aria-pressed', 'false');
+    closedFilterBtn.classList.remove("active");
+    closedFilterBtn.setAttribute("aria-pressed", "false");
+    openFilterBtn.classList.remove("active");
+    openFilterBtn.setAttribute("aria-pressed", "false");
 
     // Activate selected
-    selectedBtn.classList.add('active');
-    selectedBtn.setAttribute('aria-pressed', 'true');
+    selectedBtn.classList.add("active");
+    selectedBtn.setAttribute("aria-pressed", "true");
   }
 
-  closedFilterBtn.addEventListener('click', () => {
-    if (closedFilterBtn.classList.contains('active')) return; // prevent re-click
+  closedFilterBtn.addEventListener("click", () => {
+    if (closedFilterBtn.classList.contains("active")) return; // prevent re-click
     setActiveFilter(closedFilterBtn);
     updateCombinedItems();
   });
 
-  openFilterBtn.addEventListener('click', () => {
-    if (openFilterBtn.classList.contains('active')) return; // prevent re-click
+  openFilterBtn.addEventListener("click", () => {
+    if (openFilterBtn.classList.contains("active")) return; // prevent re-click
     setActiveFilter(openFilterBtn);
     if (openItems.length === 0) {
       fetchOpenPRs();
@@ -426,18 +501,18 @@
     }
   });
 
-  searchInput.addEventListener('input', () => {
+  searchInput.addEventListener("input", () => {
     updateCombinedItems();
   });
 
-  prevButton.addEventListener('click', () => {
+  prevButton.addEventListener("click", () => {
     if (currentPage > 1) {
       currentPage -= 1;
       displaySortedPRs();
     }
   });
 
-  nextButton.addEventListener('click', () => {
+  nextButton.addEventListener("click", () => {
     if (currentPage * itemsPerPage < currentItems.length) {
       currentPage += 1;
       displaySortedPRs();
