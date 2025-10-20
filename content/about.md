@@ -1,15 +1,15 @@
 ---
 title: About me
-date: 
+date:
 tags:
-author: 
+author:
 showToc: false
 TocOpen: false
 draft: false
 hidemeta: false
 comments: false
-description: 
-canonicalURL: 
+description:
+canonicalURL:
 disableHLJS: true
 disableShare: true
 hideSummary: false
@@ -22,13 +22,13 @@ ShowRssButtonInSectionTermList: false
 UseHugoToc: false
 cover:
   image: ""
-  alt: 
-  caption: 
+  alt:
+  caption:
   relative: true
   hidden: true
 ---
 
- {{< left-image src="/Images/About_me/Nirav_about.jpg" alt=" " >}}
+{{< left-image src="/Images/About_me/Nirav_about.jpg" alt=" " >}}
 
 Hi, I’m Nirav. I’m a Developer focused on the Microsoft 365 domain, and I work at [**Creospark**](https://www.creospark.com) Consulting firm located in Toronto, Canada. In addition to working on development and consultation projects, I’m an active contributor to the [Microsoft 365 and Power Platform community](https://pnp.github.io/).
 
@@ -36,6 +36,7 @@ I’ve been working with Microsoft technologies for around 4 years. I’ve start
 
 I hold the following certifications:
 
+- [Microsoft Certified: Power Platform Functional Consultant Associate](https://learn.microsoft.com/en-us/users/nrvrvl/credentials/5b602095cbfba715?ref=https%3A%2F%2Fwww.linkedin.com%2F)
 - [Microsoft Certified: Power Platform App Maker Associate](https://learn.microsoft.com/en-us/users/nrvrvl/credentials/66B6FA2C51333F2E)
 - [Microsoft Certified : Create and Manage Canvas Apps with Power Apps](https://learn.microsoft.com/api/credentials/share/en-us/nrvrvl/E489BAC41388B8C?sharingId)
 - [Microsoft Certified : Implement AI models with Microsoft Power Platform AI Builder](https://learn.microsoft.com/api/credentials/share/en-us/nrvrvl/5ab8d05d4018b40d?sharingId)
@@ -55,8 +56,6 @@ I hold the following certifications:
 {{< image src="/Images/About_me/Badge_CodeCrusader.png" alt="Badge_CodeCrusader.png" >}}
 {{< image src="/Images/About_me/Badge_RiseofContributor.png" alt="Badge_RiseofContributor" >}}
 {{< image src="/Images/About_me/Badge_PnPContributor2025.png" alt="Badge_PnPContributor2025" >}}
-
-
 
 For a long time, I’ve had the thought of creating a blog to share knowledge and help others. I’m building this space to discuss the problems I solve. While it’s primarily focused on the Microsoft ecosystem, I’ll also share tips and tricks that I find helpful across other areas.
 
