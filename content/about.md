@@ -47,15 +47,15 @@ I hold the following certifications:
 - [Microsoft Certified : Power Platform Fundamentals](https://www.youracclaim.com/badges/79b37252-59b1-4a1d-8854-3d19dce16362?source=linked_in_profile)
 - [Microsoft Certified : Create and manage automated processes by using Power Automate](https://learn.microsoft.com/api/credentials/share/en-us/nrvrvl/F28485F2A0F4BF76?sharingId)
 
+{{< image src="/Images/About_me/Badge_M365Contributor2026.png" alt="Badge_M365Contributor2026" >}}
 {{< image src="/Images/About_me/Badge_M365Contributor2025.png" alt="Badge_M365Contributor2025" >}}
 {{< image src="/Images/About_me/Badge_Associate.png" alt="Associate Badge" >}}
 {{< image src="/Images/About_me/Badge_Fundamental.png" alt="Badge_Fundamental" >}}
-{{< image src="/Images/About_me/Badge_Copilot_Recruit.png" alt="Badge_Copilot_Recruit" >}}
 
+{{< image src="/Images/About_me/Badge_SPFxContributor.png" alt="Badge_SPFxContributor" >}}
+{{< image src="/Images/About_me/Badge_Hacktoberfest.png" alt="Badge_Hacktoberfest" >}}
 {{< image src="/Images/About_me/Badge_spfxToolkit.png" alt="Badge_spfxToolkit" >}}
-{{< image src="/Images/About_me/Badge_CodeCrusader.png" alt="Badge_CodeCrusader.png" >}}
-{{< image src="/Images/About_me/Badge_RiseofContributor.png" alt="Badge_RiseofContributor" >}}
-{{< image src="/Images/About_me/Badge_PnPContributor2025.png" alt="Badge_PnPContributor2025" >}}
+{{< image src="/Images/About_me/Badge_Copilot_Recruit.png" alt="Badge_Copilot_Recruit" >}}
 
 For a long time, I’ve had the thought of creating a blog to share knowledge and help others. I’m building this space to discuss the problems I solve. While it’s primarily focused on the Microsoft ecosystem, I’ll also share tips and tricks that I find helpful across other areas.
 
