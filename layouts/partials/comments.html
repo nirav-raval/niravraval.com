@@ -1,42 +1,45 @@
 <script>
+
+  function getGiscusTheme() {
+    var saved = localStorage.getItem("pref-theme");
+    if (saved) return saved === "dark" ? "dark" : "light";
+    return document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+  }
+
+  (function () {
+    var s = document.createElement("script");
+    s.src = "https://giscus.app/client.js";
+    s.setAttribute("data-repo", "nirav-raval/niravraval.com");
+    s.setAttribute("data-repo-id", "R_kgDONXDdoA");
+    s.setAttribute("data-category", "Post Comments");
+    s.setAttribute("data-category-id", "DIC_kwDONXDdoM4CllZe");
+    s.setAttribute("data-mapping", "pathname");
+    s.setAttribute("data-strict", "0");
+    s.setAttribute("data-reactions-enabled", "1");
+    s.setAttribute("data-emit-metadata", "0");
+    s.setAttribute("data-input-position", "bottom");
+    s.setAttribute("data-theme", getGiscusTheme());
+    s.setAttribute("data-lang", "en");
+    s.setAttribute("crossorigin", "anonymous");
+    s.async = true;
+    document.currentScript.parentNode.insertBefore(s, document.currentScript.nextSibling);
+  })();
+
+  // Also sync theme whenever the user toggles it live on the current page.
   function updateGiscusTheme() {
-    const isDark = document.documentElement.getAttribute("data-theme") === "dark";
-    const giscusTheme = isDark ? "dark" : "light";
-    const giscusFrame = document.querySelector("iframe.giscus-frame");
-    if (giscusFrame) {
-      giscusFrame.contentWindow.postMessage(
-        { giscus: { setConfig: { theme: giscusTheme } } },
+    var theme = getGiscusTheme();
+    var frame = document.querySelector("iframe.giscus-frame");
+    if (frame) {
+      frame.contentWindow.postMessage(
+        { giscus: { setConfig: { theme: theme } } },
         "https://giscus.app"
       );
     }
   }
 
-  // Observe the 'data-theme' attribute on the HTML tag
-  // This correctly integrates with PaperMod's built-in theme toggle
-  const observer = new MutationObserver(function() {
-    updateGiscusTheme();
-  });
-  
+  var observer = new MutationObserver(updateGiscusTheme);
   observer.observe(document.documentElement, {
     attributes: true,
-    attributeFilter: ["data-theme"]
+    attributeFilter: ["data-theme"],
   });
 </script>
-
-<!-- Giscus Script -->
-<script
-  src="https://giscus.app/client.js"
-  data-repo="nirav-raval/niravraval.com"
-  data-repo-id="R_kgDONXDdoA"
-  data-category="Post Comments"
-  data-category-id="DIC_kwDONXDdoM4CllZe"
-  data-mapping="pathname"
-  data-strict="0"
-  data-reactions-enabled="1"
-  data-emit-metadata="0"
-  data-input-position="bottom"
-  data-theme="light"
-  data-lang="en"
-  crossorigin="anonymous"
-  async
-></script>
