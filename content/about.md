@@ -59,8 +59,6 @@ I hold the following certifications:
 
 For a long time, I’ve had the thought of creating a blog to share knowledge and help others. I’m building this space to discuss the problems I solve. While it’s primarily focused on the Microsoft ecosystem, I’ll also share tips and tricks that I find helpful across other areas.
 
-Feel free to send me a [Hi!](mailto:contact@niravraval.com).
-
 Enjoy! 😺
 
 Nirav

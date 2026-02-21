@@ -1,32 +1,25 @@
 <script>
-  // Set the initial theme based on localStorage or default to "light"
-  let theme = localStorage.getItem("theme") || "light";
-
-  // Apply the theme dynamically to the page
-  document.documentElement.setAttribute("data-theme", theme);
-
-  // Update the Giscus theme dynamically
-  function updateGiscusTheme(newTheme) {
+  function updateGiscusTheme() {
+    const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+    const giscusTheme = isDark ? "dark" : "light";
     const giscusFrame = document.querySelector("iframe.giscus-frame");
     if (giscusFrame) {
       giscusFrame.contentWindow.postMessage(
-        { giscus: { setConfig: { theme: newTheme } } },
+        { giscus: { setConfig: { theme: giscusTheme } } },
         "https://giscus.app"
       );
     }
   }
 
-  // Get the theme toggle button
-  const themeToggleButton = document.getElementById("theme-toggle");
-
-  // Add a click event listener to toggle the theme
-  themeToggleButton.addEventListener("click", function () {
-    theme = theme === "light" ? "dark" : "light";
-    document.documentElement.setAttribute("data-theme", theme);
-
-    localStorage.setItem("theme", theme);
-
-    updateGiscusTheme(theme);
+  // Observe the 'data-theme' attribute on the HTML tag
+  // This correctly integrates with PaperMod's built-in theme toggle
+  const observer = new MutationObserver(function() {
+    updateGiscusTheme();
+  });
+  
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["data-theme"]
   });
 </script>
 

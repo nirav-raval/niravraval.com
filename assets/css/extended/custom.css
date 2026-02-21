@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --glass-bg: rgba(255, 255, 255, 0.75);
+    --card-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    --card-hover-transform: translateY(-4px) scale(1.01);
+    --nav-blur: blur(16px);
+}
+
+.dark,
+[data-theme="dark"] {
+    --glass-bg: rgba(29, 30, 32, 0.75);
+    --card-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    scroll-behavior: smooth;
+}
+
+/* Glassmorphism Header */
+.header {
+    background: var(--glass-bg) !important;
+    backdrop-filter: var(--nav-blur);
+    -webkit-backdrop-filter: var(--nav-blur);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+
+
+/* Interactive Post Cards */
+.post-entry {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 16px;
+    border: 1px solid calc(var(--border) * 0.5);
+    /* slightly softer border */
+    background: var(--entry);
+    overflow: hidden;
+}
+
+.post-entry:hover {
+    transform: var(--card-hover-transform);
+    box-shadow: var(--card-shadow);
+    border-color: var(--primary);
+    /* subtle highlight on hover */
+}
+
+/* Dynamic Buttons and Tags */
+.post-tags a,
+.pagination a,
+.social-icons a {
+    border-radius: 9999px !important;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s ease, opacity 0.2s ease, color 0.2s ease !important;
+}
+
+.post-tags a:hover {
+    transform: scale(1.05);
+    background: var(--primary);
+    color: var(--theme);
+}
+
+.social-icons a:hover {
+    transform: scale(1.15) translateY(-2px);
+}
+
+/* Image & Avatar Animations */
+.profile_inner img {
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.dark .profile_inner img,
+[data-theme="dark"] .profile_inner img {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.profile_inner img:hover {
+    transform: scale(1.08) rotate(3deg);
+}
+
+.post-content img {
+    border-radius: 12px;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.post-content img:hover {
+    transform: scale(1.02);
+    box-shadow: var(--card-shadow);
+}
+
+/* Medium Zoom Header Overlap Fix */
+.medium-zoom-overlay,
+.medium-zoom-image--opened {
+    z-index: 110 !important;
+}

@@ -88,20 +88,17 @@
 </div>
 
 <style>
-  :root {
-    --primary: #222831;
-    --primary-hover: #393e46;
-    --theme: #f5f5f5;
-    --border: #cccccc;
-    --code-bg: #d1d9e6;
-    --accent: #222831;
-    --accent-light: #b0f9f64c;
-  }
-
   .table-container {
+    --c-primary: var(--primary);
+    --c-primary-hover: var(--secondary);
+    --c-theme: var(--theme);
+    --c-border: var(--border);
+    --c-code-bg: var(--tertiary);
+    --c-accent: var(--primary);
+    --c-accent-light: var(--entry);
+    
     margin: 40px 10px 10px 10px;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    color: var(--primary);
+    color: var(--c-primary);
   }
 
   /* Wrapper for search + toggles */
@@ -117,25 +114,25 @@
     flex-grow: 1;
     min-width: 200px;
     padding: 10px 14px;
-    border: 1.5px solid var(--border);
+    border: 1.5px solid var(--c-border);
     border-radius: 6px;
     font-size: 1rem;
-    background-color: var(--theme);
-    color: var(--primary);
+    background-color: var(--c-theme);
+    color: var(--c-primary);
     transition: border-color 0.3s ease;
   }
 
   .search-input:focus {
     outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 0 6px var(--accent-light);
+    border-color: var(--c-accent);
+    box-shadow: 0 0 6px var(--c-accent-light);
   }
 
   .toggle-group {
     display: flex;
-    border: 1.5px solid var(--border);
+    border: 1.5px solid var(--c-border);
     border-radius: 25px;
-    background-color: var(--theme);
+    background-color: var(--c-theme);
     overflow: hidden;
     user-select: none;
   }
@@ -147,26 +144,26 @@
     background-color: transparent;
     font-weight: 600;
     font-size: 0.9rem;
-    color: var(--primary);
+    color: var(--c-primary);
     transition: background-color 0.3s ease, color 0.3s ease;
     border-radius: 0;
     flex: 1 1 auto;
   }
 
   .toggle-btn:not(:last-child) {
-    border-right: 1.5px solid var(--border);
+    border-right: 1.5px solid var(--c-border);
   }
 
   .toggle-btn:hover,
   .toggle-btn:focus-visible {
-    background-color: var(--accent-light);
-    color: var(--accent);
+    background-color: var(--c-accent-light);
+    color: var(--c-accent);
     outline: none;
   }
 
   .toggle-btn.active {
-    background-color: var(--accent);
-    color: white;
+    background-color: var(--c-accent);
+    color: var(--c-theme);
     cursor: default;
   }
 
@@ -175,9 +172,9 @@
     width: 100%;
     border-collapse: collapse;
     table-layout: fixed;
-    background-color: var(--theme);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
+    background-color: var(--c-theme);
+    box-shadow: var(--card-shadow); /* modern shadow */
+    border-radius: 12px;
     overflow: hidden;
     transition: opacity 0.3s ease;
   }
@@ -186,20 +183,20 @@
   td {
     padding: 1rem;
     text-align: left;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--c-border);
   }
 
   th {
     font-weight: 600;
     text-transform: capitalize;
     letter-spacing: 0.06rem;
-    background-color: var(--code-bg);
-    color: var(--primary);
+    background-color: var(--c-code-bg);
+    color: var(--c-primary);
   }
 
   td {
     font-size: 0.95rem;
-    color: var(--primary);
+    color: var(--c-primary);
     word-break: break-word;
   }
 
@@ -217,7 +214,7 @@
   .loading-indicator {
     text-align: center;
     font-style: italic;
-    color: var(--accent);
+    color: var(--c-accent);
     margin-top: 10px;
     font-weight: 600;
   }
@@ -227,25 +224,26 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 15px;
-    gap: 10px;
+    margin-top: 25px;
+    gap: 15px;
   }
 
   .pagination-button {
-    padding: 10px 20px;
+    padding: 10px 24px;
     border: none;
-    border-radius: 6px;
-    background-color: var(--primary);
-    color: var(--theme);
+    border-radius: 9999px; /* pill shape matching custom styles */
+    background-color: var(--c-primary);
+    color: var(--c-theme);
     cursor: pointer;
     font-weight: 600;
     font-size: 0.9rem;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.2s ease, transform 0.2s ease;
   }
 
   .pagination-button:hover:not(:disabled),
   .pagination-button:focus-visible:not(:disabled) {
-    background-color: var(--primary-hover);
+    background-color: var(--c-primary-hover);
+    transform: scale(1.05);
     outline: none;
   }
 
@@ -293,8 +291,8 @@
 
     tr {
       margin-bottom: 1.25rem;
-      border: 1px solid var(--border);
-      border-radius: 8px;
+      border: 1px solid var(--c-border);
+      border-radius: 12px;
       overflow: hidden;
     }
 
@@ -302,13 +300,13 @@
       display: flex;
       justify-content: space-between;
       padding: 0.75rem 1rem;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--c-border);
     }
 
     td::before {
       content: attr(data-label);
       font-weight: 600;
-      color: var(--primary);
+      color: var(--c-primary);
       flex-basis: 40%;
     }
   }
@@ -316,7 +314,7 @@
   /* Empty state styling */
   #page-info:empty {
     font-style: italic;
-    color: var(--border);
+    color: var(--c-border);
   }
 </style>
 
