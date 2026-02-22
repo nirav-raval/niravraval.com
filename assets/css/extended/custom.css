@@ -114,13 +114,15 @@ body {
     flex-wrap: wrap;
     gap: var(--gap);
     justify-content: center;
+    align-content: flex-start;
 }
 
 .main>header,
 .main>.post-content,
 .main>.page-footer,
 .main>.pagination,
-.main>.breadcrumbs {
+.main>.breadcrumbs,
+.main>#searchbox {
     width: 100%;
     flex: 1 1 100%;
 }
@@ -164,4 +166,56 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* Fix Search Results Alignment and Width */
+#searchResults {
+    padding: 0;
+    margin: 20px auto 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#searchResults li {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    background: var(--entry);
+    border: 1px solid rgba(150, 150, 150, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+    padding: 15px 20px;
+}
+
+#searchResults li:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary);
+}
+
+#searchResults a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+#searchResults .focus {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary);
+}
+
+.dark #searchResults li {
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
